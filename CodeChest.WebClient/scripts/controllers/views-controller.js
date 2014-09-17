@@ -1,5 +1,5 @@
-define(["jquery", "handlebars", "q", "AuthController", "FakeDataModel", "HandlebarsHelper"],
-    function($, Handlebars, Q, AuthController, FakeDataModel) {
+define(["jquery", "handlebars", "q", "AuthController", "SearchController", "FakeDataModel", "HandlebarsHelper"],
+    function($, Handlebars, Q, AuthController, SearchController, FakeDataModel) {
 
     "use strict";
 
@@ -10,6 +10,7 @@ define(["jquery", "handlebars", "q", "AuthController", "FakeDataModel", "Handleb
             LOGGED_OUT_HTML: "views/logged-out-header.html",
             SIGN_IN_HTML: "views/sign-in.html",
             SIGN_UP_HTML: "views/sign-up.html",
+            LOGGED_IN_IDX: "views/logged-in-index.html",
             TOP_SNIPPETS_TEMPL: "views/templates/index-top-snippets-template.html"
         };
 
@@ -44,9 +45,42 @@ define(["jquery", "handlebars", "q", "AuthController", "FakeDataModel", "Handleb
         };
 
         ViewsController.prototype.loadIndex = function() {
+            _clearWrapper.call(this);
+
+            if (!AuthController.isLoggedIn()) {
+                this._publicIndex();
+            } else {
+                this._userIndex();
+            }
+        };
+
+        ViewsController.prototype.loadSignIn = function() {
+            if (!AuthController.isLoggedIn()) {
+                this._routineLoad(Paths.SIGN_IN_HTML);
+            } else {
+                this.home();
+            }
+        };
+
+        ViewsController.prototype.loadSignUp = function() {
+            if (!AuthController.isLoggedIn()) {
+                this._routineLoad(Paths.SIGN_UP_HTML);
+            } else {
+                this.home();
+            }
+        };
+
+        ViewsController.prototype.loadSearchResults = function(searchParams) {
+            var searchConroller = new SearchController(),
+                translatedParams = searchConroller.translateSearchParams(searchParams);
+
+            console.log("Params");
+            console.log(translatedParams);
+        };
+
+        ViewsController.prototype._publicIndex = function() {
             var self = this;
 
-            _clearWrapper.call(this);
             $.get(Paths.TOP_SNIPPETS_TEMPL, function(data) {
                 var templateHtml,
                     compiled;
@@ -64,12 +98,22 @@ define(["jquery", "handlebars", "q", "AuthController", "FakeDataModel", "Handleb
             });
         };
 
-        ViewsController.prototype.loadSignIn = function() {
-            this._routineLoad(Paths.SIGN_IN_HTML);
-        };
-
-        ViewsController.prototype.loadSignUp = function() {
-            this._routineLoad(Paths.SIGN_UP_HTML);
+        ViewsController.prototype._userIndex = function() {
+//            $.get(Paths.TOP_SNIPPETS_TEMPL, function(data) {
+//                var templateHtml,
+//                    compiled;
+//
+//                self.wrapper.html(data);
+//
+//                templateHtml = $("#top-snippets-template").html();
+//                compiled = Handlebars.compile(templateHtml);
+//
+//                self.data.getTopSnippetsList().then(function(data) {
+//                    $("#top-snippets").html(compiled({
+//                        lists: data
+//                    })).hide().fadeIn(400);
+//                });
+//            });
         };
 
         ViewsController.prototype._routineLoad = function(path) {

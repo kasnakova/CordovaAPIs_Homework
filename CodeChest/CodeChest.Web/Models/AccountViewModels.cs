@@ -32,6 +32,8 @@ namespace CodeChest.Web.Models
         public bool HasRegistered { get; set; }
 
         public string LoginProvider { get; set; }
+
+        public string AvatarUrl { get; set; }
     }
 
     public class UserLoginInfoViewModel

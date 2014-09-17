@@ -34,6 +34,8 @@
 
         public string AvatarUrl { get; set; }
 
+        public string LocalAvatarPath { get; set; }
+
         public virtual ICollection<CodeSnipet> CodeSnipets
         {
             get
@@ -59,6 +61,5 @@
                 this.ratings = value;
             }
         }
-
     }
 }

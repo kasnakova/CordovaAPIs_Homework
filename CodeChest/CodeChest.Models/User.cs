@@ -28,9 +28,9 @@
             return userIdentity;
         }
 
-        public DateTime? LatestActivityDate { get; set; }
+        public DateTime LatestActivityDate { get; set; }
         
-        public DateTime? RegistrationDate { get; set; }
+        public DateTime RegistrationDate { get; set; }
 
         public string AvatarUrl { get; set; }
 

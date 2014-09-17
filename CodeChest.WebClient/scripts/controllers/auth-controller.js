@@ -11,7 +11,7 @@ define(function() {
 
         function AuthController() {}
 
-        // TODO: Find better solution
+        // TODO: Find a better solution
         AuthController.isLoggedIn = function() {
             var data;
 

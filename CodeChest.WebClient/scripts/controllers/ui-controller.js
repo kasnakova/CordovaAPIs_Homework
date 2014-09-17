@@ -3,7 +3,8 @@ define(["jquery"], function($) {
 
     var UiController;
     UiController = (function() {
-        var $searchInfoHolder = $("#search-info-holder");
+        var $searchInfoHolder = $("#search-info-holder"),
+            $searchFieldForm = $("#search-field-form");
 
         function UiController() {}
 
@@ -16,10 +17,9 @@ define(["jquery"], function($) {
         };
 
         UiController.setSearchAction = function() {
-            $("#search-field-form").find("button").on("click", function() {
-                console.log("asdas");
-                var searchParams = $(this).find(".search-field").val();
-                $(this).attr("action", "#/search/" + searchParams);
+            $searchFieldForm.find("button").on("click", function() {
+                var searchParams = $searchFieldForm.find(".search-field").val();
+                $searchFieldForm.attr("action", "#/search/" + searchParams);
             });
         };
 

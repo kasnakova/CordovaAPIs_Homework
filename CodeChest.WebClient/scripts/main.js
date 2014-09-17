@@ -10,6 +10,7 @@
             "prism": "libs/prism",
             "Init": "init",
             "FakeDataModel": "models/fake-data-model",
+            "Extensions": "helpers/extensions",
             "HandlebarsHelper": "helpers/handlebars-helper",
             "AuthController": "controllers/auth-controller",
             "ViewsController": "controllers/views-controller",
@@ -26,7 +27,7 @@
         }
     });
 
-    require(["sammy", "jquery", "AuthController", "ViewsController", "Init"],
+    require(["sammy", "jquery", "AuthController", "ViewsController", "Extensions", "Init"],
         function(Sammy, $, AuthController, ViewsController) {
 
         var viewsController = new ViewsController("#main"),
@@ -53,23 +54,35 @@
             });
 
             this.get("#/sign-in", function() {
-                if (!AuthController.isLoggedIn()) {
-                    viewsController.loadSignIn();
-                } else {
-                    viewsController.home();
-                }
+                viewsController.loadSignIn();
             });
 
             this.get("#/sign-up", function() {
-                if (!AuthController.isLoggedIn()) {
-                    viewsController.loadSignUp();
-                } else {
-                    viewsController.home();
-                }
+                viewsController.loadSignUp();
             });
 
             this.get("#/search/:sparams", function() {
-                alert(this.params["sparams"]);
+                viewsController.loadSearchResults(this.params.sparams);
+            });
+
+            this.get("#/add-snippet", function() {
+                // TODO: Implement
+            });
+
+            this.get("#/modify-snippet/:guid", function() {
+                // TODO: Implement
+            });
+
+            this.get("#/profile/security", function() {
+                // TODO: Implement
+            });
+
+            this.get("#/user/:guid", function() {
+                // TODO: Implement
+            });
+
+            this.get("#/snippet/:guid", function() {
+                // TODO: Implement
             });
         });
 

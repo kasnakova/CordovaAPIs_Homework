@@ -1,3 +1,5 @@
+/* TODO Refactor this one day, maybe */
+
 @charset "utf-8";
 
 /* RESETS > */
@@ -227,9 +229,6 @@ button.golden.add {
     opacity: 1.0;
 }
 
-/*#main-header .login {
-    float: right;
-}*/
 
 #main-footer {
     width: inherit;
@@ -250,8 +249,6 @@ section#main {
     overflow: hidden;
     min-height: 400px;
 }
-
-/****************************************************/
 
 .result-container {
     min-width: 32.5%;
@@ -362,8 +359,6 @@ span.lang, .result-container.search .delete {
     background-position: bottom;
 }
 
-/***********/
-
 .stars > div {
     margin: 2px 0 0 1px;
     float: left;
@@ -375,19 +370,13 @@ span.lang, .result-container.search .delete {
     width: 14px; height: 14px;
 }
 
-
 .sm-star.marked {
     background-position: top;
 }
 
-
-/**********/
-
 .auth-field input, .auth-field button {
     margin-bottom: 10px;
 }
-
-/*********/
 
 #paging {
     text-align: center;
@@ -399,8 +388,6 @@ span.lang, .result-container.search .delete {
     font-weight: bold;
     color: #444;
 }
-
-/*******/
 
 #sidebar, #main-content {
     float: left;
@@ -503,8 +490,6 @@ span.light {
     font-weight: normal;
 }
 
-/*******/
-
 #lang-list {
     margin-top: 15px;
     font-weight: 600;
@@ -526,8 +511,6 @@ span.light {
     background: #CCC;
     color: #FFF;
 }
-
-/*****/
 
 #snippet-info {
     height: 64px;
@@ -563,8 +546,6 @@ span.light {
     word-spacing: 0.4em;
     text-align: right;
 }
-
-/*******/
 
 .rating-bar {
     position: relative;
@@ -617,8 +598,6 @@ span.light {
     font-weight: 600;
 }
 
-/****/
-
 #disable {
     position: fixed;
     top: 0; left: 0;
@@ -627,17 +606,9 @@ span.light {
     display: none;
 }
 
-
-/*********/
-
-
 #modify-snippet > div {
     margin-bottom: 10px;
 }
-
-
-/******/
-
 
 textarea.code-input {
     font-size: 14px;

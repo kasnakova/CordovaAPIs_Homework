@@ -27,7 +27,7 @@
         {
         }
 
-        ////Route - api/CodeSnipets/All
+        //Route - api/CodeSnipets/All
         [HttpGet]
         public IHttpActionResult All()
         {
@@ -67,7 +67,7 @@
                 .CodeSnipets
                 .All()
                 .Where(c => c.Language == language)
-                .Select(CodeSnipetDataModel.FromCodeSnipet);
+                .Select(CodeSnipetsPartialDataModel.FromCodeSnipet);
 
             return Ok(codeSnipetTitles);
         }
@@ -80,7 +80,7 @@
                 .CodeSnipets
                 .All()
                 .Where(c => c.Title.Contains(title))
-                .Select(CodeSnipetDataModel.FromCodeSnipet);
+                .Select(CodeSnipetsPartialDataModel.FromCodeSnipet);
 
             return Ok(codeSnipetTitles);
         }
@@ -92,7 +92,7 @@
             var codeSnipetTitles = this.GetAllOrderedByDate()
                 .Skip(CODESNIPETS_ON_PAGE * page)
                 .Take(CODESNIPETS_ON_PAGE)
-                .Select(CodeSnipetDataModel.FromCodeSnipet).ToList();
+                .Select(CodeSnipetsPartialDataModel.FromCodeSnipet).ToList();
 
             return Ok(codeSnipetTitles);
         }

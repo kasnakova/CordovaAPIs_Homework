@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.Linq.Expressions;
+    using System.Linq;
 
     using CodeChest.Models;
 
@@ -15,10 +16,11 @@
                 return a => new CodeSnipetsPartialDataModel
                 {
                     Id = a.Id,
-                    //UserId = a.UserId,
+                    Poster = a.User.UserName,
                     Title = a.Title,
-                    //AddedOn = a.AddedOn,
-                    //Language = a.Language
+                    AddedOn = a.AddedOn,
+                    Language = a.Language,
+                    Score = (a.Ratings.Sum(r => r.Score)/((double?)a.Ratings.Count()))
                 };
             }
         }
@@ -30,12 +32,13 @@
         [Required]
         public string Title { get; set; }
 
-        //public DateTime AddedOn { get; set; }
+        public string Poster { get; set; }
 
-        //[Required]
-       // public LanguageType Language { get; set; }
+        public DateTime AddedOn { get; set; }
+        
+        public LanguageType Language { get; set; }
 
-        //[Range(1, 5)]
-        //public int? Score { get; set; }
+        [Range(1, 5)]
+        public double? Score { get; set; }
     }
 }

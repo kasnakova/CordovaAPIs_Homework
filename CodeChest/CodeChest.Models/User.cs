@@ -32,9 +32,7 @@
         
         public DateTime RegistrationDate { get; set; }
 
-        public string AvatarUrl { get; set; }
-
-        public string LocalAvatarPath { get; set; }
+        public string AvatarUrl { get; set; }        
 
         public virtual ICollection<CodeSnipet> CodeSnipets
         {

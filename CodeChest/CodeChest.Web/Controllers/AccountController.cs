@@ -162,7 +162,7 @@
             }
 
             var dropboxConnection = new DropboxConnection();
-            dropboxConnection.UploadNewUserAvatar(user.LocalAvatarPath, user.UserName);
+            dropboxConnection.UploadNewUserAvatar(avatarLocationUrl, user.UserName);
 
             user.AvatarUrl = dropboxConnection.GetShareableLink(avatarLocationUrl);
             data.SaveChanges();
@@ -383,13 +383,13 @@
             {
                 return BadRequest(ModelState);
             }
-
+            
             var user = new User() { UserName = model.Email, Email = model.Email, RegistrationDate = DateTime.Now, LatestActivityDate = DateTime.Now };
 
             if (model.LocalAvatarPath != null)
             {
                 var dropboxConnection = new DropboxConnection();
-                dropboxConnection.UploadNewUserAvatar(user.LocalAvatarPath, user.UserName);
+                dropboxConnection.UploadNewUserAvatar(model.LocalAvatarPath, user.UserName);
 
                 user.AvatarUrl = dropboxConnection.GetShareableLink(model.LocalAvatarPath);
             }

@@ -18,6 +18,7 @@
     {
         private const string NO_CODE_SNIPET = "Code snippet does not exist or has been deleted!";
         private const string NOT_YOUR_SNIPET = "You can not edit/delete someone else's code snippet!";
+        private const int CODESNIPETS_ON_PAGE = 10;
         //TODO: konstantite da se iznesat v otdelen klas/enum ili kakto e kulturno
 
         public CodeSnipetsController(ICodeChestData data, IUserIdProvider userIdProvider)
@@ -28,7 +29,6 @@
         [HttpGet]
         public IHttpActionResult All()
         {
-            //TODO: filter by language/title; get n pages
             var codeSnipetTitles = this.data
                 .CodeSnipets
                 .All()
@@ -62,7 +62,7 @@
             var codeSnipetTitles = this.data
                 .CodeSnipets
                 .All()
-                .Where(c=> c.Language == language)
+                .Where(c => c.Language == language)
                 .Select(CodeSnipetDataModel.FromCodeSnipet);
 
             return Ok(codeSnipetTitles);
@@ -80,6 +80,16 @@
             return Ok(codeSnipetTitles);
         }
 
+        [HttpGet]
+        public IHttpActionResult ByPage(int page)
+        {
+            var codeSnipetTitles = this.GetAllOrderedByDate()
+                .Skip(CODESNIPETS_ON_PAGE * page)
+                .Take(CODESNIPETS_ON_PAGE)
+                .Select(CodeSnipetDataModel.FromCodeSnipet).ToList();
+
+            return Ok(codeSnipetTitles);
+        }
 
         [Authorize]
         [HttpPost]
@@ -129,7 +139,6 @@
                 return BadRequest(NOT_YOUR_SNIPET);
             }
 
-            //TODO: maybe add a field modifiedOn in the database and change it when updating a snippet
             existingCodeSnipet.Content = codeSnipet.Content;
             existingCodeSnipet.Language = codeSnipet.Language;
             existingCodeSnipet.Title = codeSnipet.Title;
@@ -190,6 +199,14 @@
             }
 
             return score;
+        }
+
+        private IQueryable<CodeSnipet> GetAllOrderedByDate()
+        {
+            return this.data
+                .CodeSnipets
+                .All()
+                .OrderBy(c => c.AddedOn);
         }
     }
 }

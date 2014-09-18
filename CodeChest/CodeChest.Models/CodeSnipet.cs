@@ -27,8 +27,6 @@
         
         public DateTime AddedOn { get; set; }
 
-        public DateTime? ModifiedOn { get; set; }
-
         [Required]
         public LanguageType Language { get; set; }
 

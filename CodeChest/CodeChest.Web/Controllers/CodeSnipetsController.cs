@@ -13,6 +13,8 @@
     using CodeChest.Models;
     using CodeChest.Web.Infrastructure;
     using CodeChest.Web.DataModels;
+    using System.Web.ModelBinding;
+    using CodeChest.Common;
 
     //Route - api/CodeSnipets
     public class CodeSnipetsController : BaseApiController
@@ -122,6 +124,9 @@
             this.data.SaveChanges();
 
             UpdateLastActivityForUser();
+
+            PubNubConnection pubnub = new PubNubConnection();
+            pubnub.PublishMessage(newCodeSnipet.Content);
 
             return Ok(newCodeSnipet.Id);
         }

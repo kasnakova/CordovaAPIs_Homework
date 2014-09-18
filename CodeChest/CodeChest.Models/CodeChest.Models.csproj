@@ -205,6 +205,12 @@
     <Content Include="App_Readme\Spring.Social.Dropbox.txt" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeChest.Common\CodeChest.Common.csproj">
+      <Project>{173eda02-6efa-437f-8244-d66a127cdda7}</Project>
+      <Name>CodeChest.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

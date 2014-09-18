@@ -1,0 +1,11 @@
+{
+    "title": "Binary heap asda as a",
+    "language": "C#",
+    "addedOn": "Jul 12 2014 at 13:31",
+    "ratedBy": 12334,
+    "content": "var pre = env.element.parentNode if (!pre || !/pre/i.test(pre.nodeName) ||\n pre.className.indexOf('line-numbers') === -1) {\nreturn;\n}",
+    "user": {
+        "name": "Pesho_le",
+        "url": "http://telerikacademy.com"
+    }
+}

@@ -21,7 +21,7 @@ define(function() {
 
             data = this.getAuth();
 
-            return data.username !== null && data.sessionKey !== null;
+            return data.name !== null && data.sessionKey !== null;
         };
 
         AuthController.getAuth = function() {

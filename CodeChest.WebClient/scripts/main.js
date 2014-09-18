@@ -74,6 +74,7 @@
                 viewsController.addSnippet();
             });
 
+
             this.get("#/modify-snippet/:guid", function() {
                 // TODO: Implement
             });
@@ -86,8 +87,8 @@
                 // TODO: Implement
             });
 
-            this.get("#/snippet/:guid", function() {
-                // TODO: Implement
+            this.get("#/snippet/:id", function() {
+                viewsController.loadSnippet(this.params.id);
             });
 
             this.get("#/logout", function() {

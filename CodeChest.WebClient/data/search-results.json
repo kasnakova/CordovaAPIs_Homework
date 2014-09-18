@@ -1,0 +1,52 @@
+{
+    "searchPhrase": "priority queue",
+    "totalPages": 3,
+    "currentPage": 1,
+    "results": [
+        {
+            "title": "Pesho's algorithm",
+            "language": "C#",
+            "rating": 5,
+            "ratedBy": 1231,
+            "addedOn": "July 12 2012",
+            "url": "http://abv.bg",
+            "user": {
+                "name": "Pesho",
+                "url": "http://github.com"
+            }
+        }, {
+            "title": "Dinko's algorithm",
+            "language": "Javascript",
+            "rating": 1,
+            "ratedBy": 1231,
+            "addedOn": "July 12 2015",
+            "url": "http://abv.bg",
+            "user": {
+                "name": "Dinko",
+                "url": "http://github.com"
+            }
+        }, {
+            "title": "test's algorithm",
+            "language": "Ruby",
+            "rating": 4,
+            "ratedBy": 1231,
+            "addedOn": "July 12 2012",
+            "url": "http://abv.bg",
+            "user": {
+                "name": "Pesho",
+                "url": "http://github.com"
+            }
+        }, {
+            "title": "asdasd",
+            "language": "PHP",
+            "rating": 3,
+            "ratedBy": 1231,
+            "addedOn": "July 12 2012",
+            "url": "http://abv.bg",
+            "user": {
+                "name": "Pesho",
+                "url": "http://github.com"
+            }
+        }
+    ]
+}

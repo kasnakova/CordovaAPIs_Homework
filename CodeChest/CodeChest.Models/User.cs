@@ -28,11 +28,13 @@
             return userIdentity;
         }
 
-        public DateTime? LatestActivityDate { get; set; }
+        public DateTime LatestActivityDate { get; set; }
         
-        public DateTime? RegistrationDate { get; set; }
+        public DateTime RegistrationDate { get; set; }
 
         public string AvatarUrl { get; set; }
+
+        public string LocalAvatarPath { get; set; }
 
         public virtual ICollection<CodeSnipet> CodeSnipets
         {
@@ -59,6 +61,5 @@
                 this.ratings = value;
             }
         }
-
     }
 }

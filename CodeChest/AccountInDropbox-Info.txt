@@ -1,0 +1,17 @@
+It was necessary to create a new email for the account in Dropbox and I choose gmail.com =>
+Info about the email:
+Email: kiwi.team.telerik@gmail.com
+Password: kiwiTeamTelerik
+
+About the account in Dropbox:
+Name: Kiwi Team
+Email: kiwi.team.telerik@gmail.com
+Secret word: L0v3M3 (0 is the digit zero, not the letter O)
+
+To access the API page -> https://www.dropbox.com/developers/apps/info/vai9i115amput2s (after login)
+App key: vai9i115amput2s
+App secret: 1oseca41p38a1f1
+Generated access token: p1dzoB-pb6MAAAAAAAAACmWMjL4NI0cmXrJwfL3GsUafI8aliQlSISmMovn4pLba
+
+The avatar images are getting stored in the folder /home/Apps/CodeChest 
+You can check it after login here -> https://www.dropbox.com/home/Apps/CodeChest

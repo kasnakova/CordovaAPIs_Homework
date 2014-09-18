@@ -17,6 +17,12 @@ using CodeChest.Web.Models;
 using CodeChest.Web.Providers;
 using CodeChest.Web.Results;
 using CodeChest.Models;
+using Spring.Social.Dropbox.Api;
+using System.IO;
+using Spring.Social.OAuth1;
+using Spring.Social.Dropbox.Connect;
+using System.Diagnostics;
+using Spring.IO;
 
 namespace CodeChest.Web.Controllers
 {
@@ -24,6 +30,14 @@ namespace CodeChest.Web.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
+        //Authentication strings for our App in Dropbox -> CodeChest - Kiwi Team
+        private const string DropboxAppKey = "vai9i115amput2s";
+        private const string DropboxAppSecret = "1oseca41p38a1f1";
+        private const string OAuthTokenFileName = "OAuthTokenFileName.txt";
+
+        public static IDropbox dropbox = null;
+        public static Entry uploadedPhoto = null;
+
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
 
@@ -63,7 +77,8 @@ namespace CodeChest.Web.Controllers
             {
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
+                AvatarUrl = GetShareableLink(uploadedPhoto.Path)
             };
         }
 
@@ -322,14 +337,18 @@ namespace CodeChest.Web.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        public async Task<IHttpActionResult> Register(RegisterBindingModel model, string localAvatarPath)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = new User() { UserName = model.Email, Email = model.Email };
+            var user = new User() { UserName = model.Email, Email = model.Email, RegistrationDate = DateTime.Now, LatestActivityDate = DateTime.Now, LocalAvatarPath = localAvatarPath };
+
+            UploadNewUserAvatar(user.LocalAvatarPath, user.UserName);
+
+            user.AvatarUrl = GetShareableLink(localAvatarPath);
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -418,6 +437,65 @@ namespace CodeChest.Web.Controllers
             }
 
             return null;
+        }
+
+        public static void UploadNewUserAvatar(string avatarLocalPath, string username)
+        {
+            dropbox = ConnectToDropboxAPI();
+
+            string uploadPhotoName = String.Format("/{0}.jpg", username);
+
+            uploadedPhoto = dropbox.UploadFileAsync(new FileResource(avatarLocalPath), uploadPhotoName).Result;
+        }
+
+        public static IDropbox ConnectToDropboxAPI()
+        {
+            DropboxServiceProvider dropboxServiceProvider =
+        new DropboxServiceProvider(DropboxAppKey, DropboxAppSecret, AccessLevel.AppFolder);
+
+            // Authenticate the application (if not authenticated) and load the OAuth token
+            if (!File.Exists(OAuthTokenFileName))
+            {
+                AuthorizeAppOAuth(dropboxServiceProvider);
+            }
+            OAuthToken oauthAccessToken = LoadOAuthToken();
+
+            // Login in Dropbox
+            dropbox = dropboxServiceProvider.GetApi(oauthAccessToken.Value, oauthAccessToken.Secret);
+
+            return dropbox;
+        }
+
+        //Login with the already saved authentication strings from the user - in our case -> we are the client's dropbox, too
+        private static OAuthToken LoadOAuthToken()
+        {
+            string[] lines = File.ReadAllLines(OAuthTokenFileName);
+            OAuthToken oauthAccessToken = new OAuthToken(lines[0], lines[1]);
+            return oauthAccessToken;
+        }
+
+        //Save the newly became authorization strings in a file to reuse them later (not authorize again every time)
+        private static void AuthorizeAppOAuth(DropboxServiceProvider dropboxServiceProvider)
+        {
+            // Authorization without callback url
+            OAuthToken oauthToken = dropboxServiceProvider.OAuthOperations.FetchRequestTokenAsync(null, null).Result;
+
+            OAuth1Parameters parameters = new OAuth1Parameters();
+            string authenticateUrl = dropboxServiceProvider.OAuthOperations.BuildAuthorizeUrl(
+                oauthToken.Value, parameters);
+            Process.Start(authenticateUrl);
+            AuthorizedRequestToken requestToken = new AuthorizedRequestToken(oauthToken, null);
+            OAuthToken oauthAccessToken =
+                dropboxServiceProvider.OAuthOperations.ExchangeForAccessTokenAsync(requestToken, null).Result;
+
+            string[] oauthData = new string[] { oauthAccessToken.Value, oauthAccessToken.Secret };
+            File.WriteAllLines(OAuthTokenFileName, oauthData);
+        }
+
+        private string GetShareableLink(string photoName)
+        {
+            DropboxLink sharedUrl = dropbox.GetShareableLinkAsync(uploadedPhoto.Path).Result;
+            return sharedUrl.Url;
         }
 
         private class ExternalLoginData

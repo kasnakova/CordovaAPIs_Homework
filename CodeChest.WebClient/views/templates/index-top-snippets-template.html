@@ -1,0 +1,24 @@
+<h2>Top Snippets</h2>
+<div id="top-snippets"></div>
+<div class="result-container">
+    <script type="text/x-handlebars-template" id="top-snippets-template">
+        {{#lists}}
+        <div class="result-container">
+            <p>{{language}} Snippets</p>
+            <ul>
+                {{#snippets}}
+                <li>
+                    <p><a href="{{url}}" class="title">{{title}}</a></p>
+                    <div class="rating">
+                        <div class="stars">
+                            {{#starRating rating}}{{/starRating}}
+                        </div>
+                        <div class="people">{{peopleRated}}</div>
+                    </div>
+                </li>
+                {{/snippets}}
+            </ul>
+        </div>
+        {{/lists}}
+    </script>
+</div>

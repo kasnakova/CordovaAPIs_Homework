@@ -28,15 +28,25 @@ define(["jquery", "q"], function($, Q) {
             return deferred.promise;
         };
 
-       FakeDataModel.prototype.getLanguageList = function() {
-           var deferred = Q.defer();
+        FakeDataModel.prototype.getLanguageList = function() {
+            var deferred = Q.defer();
 
-           $.getJSON("data/user-lang-list.json", function(data) {
+            $.getJSON("data/user-lang-list.json", function(data) {
                 deferred.resolve(data);
-           });
+            });
 
-           return deferred.promise;
-       };
+            return deferred.promise;
+        };
+
+        FakeDataModel.prototype.getSnippetsList = function() {
+            var deferred = Q.defer();
+
+            $.getJSON("data/snippets-list.json", function(data) {
+                deferred.resolve(data);
+            });
+
+            return deferred.promise;
+        };
 
         return FakeDataModel;
     }());

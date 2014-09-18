@@ -71,7 +71,7 @@
             });
 
             this.get("#/add-snippet", function() {
-                // TODO: Implement
+                viewsController.addSnippet();
             });
 
             this.get("#/modify-snippet/:guid", function() {
@@ -88,6 +88,12 @@
 
             this.get("#/snippet/:guid", function() {
                 // TODO: Implement
+            });
+
+            this.get("#/logout", function() {
+                AuthController.removeAuth();
+                viewsController.loadHeader();
+                viewsController.home();
             });
         });
 

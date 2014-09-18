@@ -1,0 +1,27 @@
+<script type="text/x-handlebars-template" id="snippets-list-template">
+    <div id="#search" class="result-container search">
+        <ul>
+            {{#snippets}}
+            <li>
+                <p><a href="{{url}}" class="title">{{title}}</a></p>
+                <div class="rating">
+                    <div class="stars">
+                        {{#starRating rating}}{{/starRating}}
+                    </div>
+                    <div class="people">{{ratedBy}}</div>
+                    <span class="delete">Delete</span>
+                    <div class="confirm-del-msg">
+                        <p>Delete the snippet?</p>
+                        <p><a href="">YES</a> <a href="">NO</a></p>
+                    </div>
+                    <div class="access-lvl {{#if isPrivate}} private {{/if}}" title="Change access level"></div>
+                    <span class="added-by">Added on {{addedOn}}</span>
+                </div>
+            </li>
+            {{/snippets}}
+        </ul>
+    </div>
+    <div id="paging">
+        {{#paging totalPages currentPage}}{{/paging}}
+    </div>
+</script>

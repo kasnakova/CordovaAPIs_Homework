@@ -7,4 +7,5 @@ define(["UiController"], function(UiController) {
     UiController.setSearchInfoToggle();
     UiController.clearPopUps();
     UiController.setSearchAction();
+    UiController.enableTextareaTab();
 });

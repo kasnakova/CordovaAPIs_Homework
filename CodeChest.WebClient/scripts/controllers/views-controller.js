@@ -5,16 +5,19 @@ define(["jquery", "handlebars", "q", "AuthController", "SearchController", "Fake
 
     var ViewsController;
     ViewsController = (function() {
-        var Paths = {
+        var TRANS_MS = 400,
+            Paths = {
             LOGGED_IN_HTML: "views/logged-in-header.html",
             LOGGED_OUT_HTML: "views/logged-out-header.html",
             SIGN_IN_HTML: "views/sign-in.html",
             SIGN_UP_HTML: "views/sign-up.html",
             USER_SNIP_HTML: "views/user-snippets.html",
+            ADD_SNIP_HTML: "views/add-snippet.html",
             LOGGED_IN_IDX: "views/logged-in-index.html",
             TOP_SNIPPETS_TEMPL: "views/templates/index-top-snippets-template.html",
             SEARCH_TEMPL: "views/templates/search-results-template.html",
-            LANG_LIST_TEMPL: "views/templates/lang-list-template.html"
+            LANG_LIST_TEMPL: "views/templates/lang-list-template.html",
+            SNIPPETS_LIST_TEMPL: "views/templates/snippets-list-template.html"
         };
 
         function _clearWrapper() {
@@ -91,9 +94,61 @@ define(["jquery", "handlebars", "q", "AuthController", "SearchController", "Fake
                 compiled = Handlebars.compile(templateHtml);
 
                 self.data.getSearchResults().then(function(data) {
-                    self.wrapper.html(compiled(data)).hide().fadeIn(400);
+                    self.wrapper.html(compiled(data)).hide().fadeIn(TRANS_MS);
                 });
             });
+        };
+
+        // Slow unfortunately
+        // TODO Sort of caching
+        ViewsController.prototype.userIndex = function(language, page) {
+            if (!AuthController.isLoggedIn()) {
+                this.home();
+                return;
+            }
+
+            var self = this;
+
+            $.get(Paths.USER_SNIP_HTML, function(data) {
+                self.wrapper.html(data);
+
+                $.get(Paths.LANG_LIST_TEMPL, function(templ) {
+                    var compiled = Handlebars.compile(templ),
+                        langList = $("#lang-list");
+
+                    // Language list
+                    self.data.getLanguageList().then(function(list) {
+                        langList.html(compiled({
+                            languages: list
+                        }));
+
+                        langList.find("li[data-info=" + language + "]").addClass("selected");
+                    });
+                });
+
+                $.get(Paths.SNIPPETS_LIST_TEMPL, function(data) {
+                    var $mainContent = $("#main-content"),
+                        templateHtml,
+                        compiled;
+
+                    $mainContent.html(data);
+                    templateHtml = $("#snippets-list-template").html();
+                    compiled = Handlebars.compile(templateHtml);
+
+                    self.data.getSnippetsList().then(function(list) {
+                        $mainContent.html(compiled(list)).hide().fadeIn(TRANS_MS);
+                    });
+                });
+            });
+        };
+
+        ViewsController.prototype.addSnippet = function() {
+            if (!AuthController.isLoggedIn()) {
+                this.home();
+                return;
+            }
+
+            this._routineLoad(Paths.ADD_SNIP_HTML);
         };
 
         ViewsController.prototype._publicIndex = function() {
@@ -109,34 +164,9 @@ define(["jquery", "handlebars", "q", "AuthController", "SearchController", "Fake
                 compiled = Handlebars.compile(templateHtml);
 
                 self.data.getTopSnippetsList().then(function(data) {
-                    self.wrapper.html(compiled({
+                    $("#top-snippets").html(compiled({
                         lists: data
-                    })).hide().fadeIn(400);
-                });
-            });
-        };
-
-        // Slow unfortunately
-        // TODO Sort of caching
-        ViewsController.prototype.userIndex = function(language, page) {
-            var self = this;
-
-            $.get(Paths.USER_SNIP_HTML, function(data) {
-                self.wrapper.html(data);
-
-                // Frame
-                $.get(Paths.LANG_LIST_TEMPL, function(templ) {
-                    var compiled = Handlebars.compile(templ),
-                        langList = $("#lang-list");
-
-                    // Language list
-                    self.data.getLanguageList().then(function(list) {
-                        langList.html(compiled({
-                            languages: list
-                        }));
-
-                        langList.find("li[data-info=" + language + "]").addClass("selected");
-                    });
+                    })).hide().fadeIn(TRANS_MS);
                 });
             });
         };

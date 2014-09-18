@@ -56,13 +56,7 @@ define(["jquery"], function($) {
                 }
             });
         };
-
-        UiController.onAddSnippetButtonPress = function() {
-            $mainSection.on("click", "input[type=\"submit\"]", function() {
-                console.log("halo");
-            });
-        };
-
+        
         return UiController;
     }());
 

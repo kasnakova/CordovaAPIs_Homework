@@ -56,6 +56,31 @@
             return Ok(codeSnipet);
         }
 
+        [HttpGet]
+        public IHttpActionResult ByLanguage(LanguageType language)
+        {
+            var codeSnipetTitles = this.data
+                .CodeSnipets
+                .All()
+                .Where(c=> c.Language == language)
+                .Select(CodeSnipetDataModel.FromCodeSnipet);
+
+            return Ok(codeSnipetTitles);
+        }
+
+        [HttpGet]
+        public IHttpActionResult ByTitle(string title)
+        {
+            var codeSnipetTitles = this.data
+                .CodeSnipets
+                .All()
+                .Where(c => c.Title.Contains(title))
+                .Select(CodeSnipetDataModel.FromCodeSnipet);
+
+            return Ok(codeSnipetTitles);
+        }
+
+
         [Authorize]
         [HttpPost]
         public IHttpActionResult Create(CodeSnipetDataModel codeSnipet)

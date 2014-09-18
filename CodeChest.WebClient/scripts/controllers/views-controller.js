@@ -1,5 +1,5 @@
-define(["jquery", "handlebars", "q", "AuthController", "SearchController", "FakeDataModel", "HandlebarsHelper"],
-    function($, Handlebars, Q, AuthController, SearchController, FakeDataModel) {
+define(["jquery", "handlebars", "q", "AuthController", "SearchController", "RegisterController", "FakeDataModel", "HandlebarsHelper"],
+    function($, Handlebars, Q, AuthController, SearchController, RegisterController, FakeDataModel) {
 
     "use strict";
 
@@ -25,9 +25,10 @@ define(["jquery", "handlebars", "q", "AuthController", "SearchController", "Fake
             this.wrapper.html("");
         }
 
-        function ViewsController(wrapper) {
+        function ViewsController(wrapper, apiUrl) {
             this.wrapper = $(wrapper);
             this.data = new FakeDataModel();
+            this.apiUrl = apiUrl;
         }
 
         ViewsController.prototype.home = function() {
@@ -71,8 +72,11 @@ define(["jquery", "handlebars", "q", "AuthController", "SearchController", "Fake
         };
 
         ViewsController.prototype.loadSignUp = function() {
+            var controller;
+
             if (!AuthController.isLoggedIn()) {
                 this._routineLoad(Paths.SIGN_UP_HTML);
+                controller = new RegisterController(this.apiUrl);
             } else {
                 this.home();
             }

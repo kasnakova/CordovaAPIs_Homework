@@ -15,11 +15,12 @@
                 return a => new CodeSnipetDataModel
                 {
                     Id = a.Id,
-                    UserId = a.UserId,
+                    UserId = a.UserId,                    
                     Title = a.Title,
                     Content = a.Content,
                     AddedOn = a.AddedOn,
                     Language = a.Language
+                    Poster = a.User.UserName,
                 };
             }
         }
@@ -42,5 +43,7 @@
 
         [Range(1, 5)]
         public double? Score { get; set; }
+
+        public string Poster { get; set; }
     }
 }

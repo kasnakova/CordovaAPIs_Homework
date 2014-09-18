@@ -17,6 +17,7 @@ namespace CodeChest.Web
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -29,8 +30,7 @@ namespace CodeChest.Web
 
             config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; 
-            config.Formatters.Remove(config.Formatters.XmlFormatter);
-            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
+            config.Formatters.Remove(config.Formatters.XmlFormatter);                
         }
     }
 }

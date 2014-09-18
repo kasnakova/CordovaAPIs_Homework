@@ -10,13 +10,14 @@
             "prism": "libs/prism",
             "Init": "init",
             "FakeDataModel": "models/fake-data-model",
-            "RegisterModel": "models/register-model",
+            "AuthModel": "models/auth-model",
             "Extensions": "helpers/extensions",
             "HandlebarsHelper": "helpers/handlebars-helper",
             "AuthController": "controllers/auth-controller",
             "ViewsController": "controllers/views-controller",
             "SearchController": "controllers/search-controller",
             "RegisterController": "controllers/register-controller",
+            "LoginController": "controllers/login-controller",
             "UiController": "controllers/ui-controller"
         },
         shim: {
@@ -32,7 +33,7 @@
     require(["sammy", "jquery", "AuthController", "ViewsController", "Extensions", "Init"],
         function(Sammy, $, AuthController, ViewsController) {
 
-        var viewsController = new ViewsController("#main", "http://localhost:11971/"),
+        var viewsController = new ViewsController("#main", "http://testing-64.apphb.com/"),
             app;
 
         // >> Faking login

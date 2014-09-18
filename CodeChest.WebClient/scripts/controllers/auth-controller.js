@@ -33,7 +33,14 @@ define(function() {
         };
 
         AuthController.setAuth = function(data) {
-            localStorage.setItem(AUTH_KEY, JSON.stringify(data));
+            var obj = {
+                user: data.userName,
+                token: data.access_token,
+                tokenType: data.token_type,
+                expiresIn: data.expires_in
+            };
+
+            localStorage.setItem(AUTH_KEY, JSON.stringify(obj));
         };
 
         AuthController.removeAuth = function() {

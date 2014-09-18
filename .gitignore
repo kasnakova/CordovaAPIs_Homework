@@ -188,4 +188,4 @@ FakesAssemblies/
 # Additional
 
 .idea/
-/CodeChest.WebClient/scripts/libs/
+/CodeChest.WebClient/scripts/libs/*.js

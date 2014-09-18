@@ -145,7 +145,7 @@
             };
         }
 
-        // Post api/Account/ChangeAvatar
+        // Post api/Account/ChangeAvatar?avatarLocationUrl={avatarLocationUrl}
         [Route("ChangeAvatar")]
         public IHttpActionResult ChangeAvatar(string avatarLocationUrl)
         {
@@ -155,8 +155,13 @@
             }
 
             var userId = User.Identity.GetUserId();
+            if (data == null)
+            {
+                data = new CodeChestData(new CodeChestDbContext());
+            }
+
             var user = data.Users.All().FirstOrDefault(u => u.Id == userId);
-            if (user != null)
+            if (user == null)
             {
                 return BadRequest("You must be logged in to change your avatar.");                
             }
@@ -384,7 +389,7 @@
                 return BadRequest(ModelState);
             }
             
-            var user = new User() { UserName = model.Email, Email = model.Email, RegistrationDate = DateTime.Now, LatestActivityDate = DateTime.Now };
+            var user = new User() { UserName = model.Username, Email = model.Email, RegistrationDate = DateTime.Now, LatestActivityDate = DateTime.Now };
 
             if (model.LocalAvatarPath != null)
             {

@@ -49,6 +49,11 @@ namespace CodeChest.Web.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
+        [Display(Name = "Username")]
+        [StringLength(30, MinimumLength = 4)]
+        public string Username { get; set; }
+
         public string LocalAvatarPath { get; set; }
     }
 

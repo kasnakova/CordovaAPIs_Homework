@@ -13,6 +13,7 @@ define(["jquery", "handlebars", "q", "AuthController", "SearchController", "Fake
             SIGN_UP_HTML: "views/sign-up.html",
             USER_SNIP_HTML: "views/user-snippets.html",
             ADD_SNIP_HTML: "views/add-snippet.html",
+            SNIPPET_HTML: "views/snippet.html",
             LOGGED_IN_IDX: "views/logged-in-index.html",
             TOP_SNIPPETS_TEMPL: "views/templates/index-top-snippets-template.html",
             SEARCH_TEMPL: "views/templates/search-results-template.html",
@@ -95,6 +96,24 @@ define(["jquery", "handlebars", "q", "AuthController", "SearchController", "Fake
 
                 self.data.getSearchResults().then(function(data) {
                     self.wrapper.html(compiled(data)).hide().fadeIn(TRANS_MS);
+                });
+            });
+        };
+
+        ViewsController.prototype.loadSnippet = function(id) {
+            var self = this;
+
+            _clearWrapper.call(this);
+            $.get(Paths.SNIPPET_HTML, function(templ) {
+                var compiled = Handlebars.compile(templ);
+
+                self.data.getASnippet().then(function(data) {
+                    data.isOwner = true;
+
+                    require(["prism"], function(Prism) {
+                        self.wrapper.html(compiled(data));
+                        Prism.highlightAll();
+                    });
                 });
             });
         };

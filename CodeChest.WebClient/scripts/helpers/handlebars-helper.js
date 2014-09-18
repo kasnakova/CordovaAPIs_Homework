@@ -1,4 +1,4 @@
-define(["handlebars"], function(Handlebars) {
+define(["handlebars", "AuthController"], function(Handlebars, AuthController) {
     "use strict";
 
     Handlebars.registerHelper("starRating", function(rating) {
@@ -35,5 +35,13 @@ define(["handlebars"], function(Handlebars) {
         }
 
         return pagesHtml;
+    });
+
+    Handlebars.registerHelper("isAuthor", function(username, options) {
+        if (AuthController.getAuth().name === username) {
+            return options.fn(this);
+        }
+
+        return options.inverse(this);
     });
 });

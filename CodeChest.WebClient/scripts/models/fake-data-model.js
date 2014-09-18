@@ -48,6 +48,16 @@ define(["jquery", "q"], function($, Q) {
             return deferred.promise;
         };
 
+        FakeDataModel.prototype.getASnippet = function() {
+            var deferred = Q.defer();
+
+            $.getJSON("data/snippet.json", function(data) {
+                deferred.resolve(data);
+            });
+
+            return deferred.promise;
+        };
+
         return FakeDataModel;
     }());
 

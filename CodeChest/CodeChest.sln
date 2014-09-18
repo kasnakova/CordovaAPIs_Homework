@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeChest.Data", "CodeChest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeChest.Web", "CodeChest.Web\CodeChest.Web.csproj", "{EE5383B7-E0E8-4B8C-B978-C2A9C0E6DB56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeChest.Common", "CodeChest.Common\CodeChest.Common.csproj", "{173EDA02-6EFA-437F-8244-D66A127CDDA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{EE5383B7-E0E8-4B8C-B978-C2A9C0E6DB56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE5383B7-E0E8-4B8C-B978-C2A9C0E6DB56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE5383B7-E0E8-4B8C-B978-C2A9C0E6DB56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{173EDA02-6EFA-437F-8244-D66A127CDDA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{173EDA02-6EFA-437F-8244-D66A127CDDA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{173EDA02-6EFA-437F-8244-D66A127CDDA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{173EDA02-6EFA-437F-8244-D66A127CDDA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

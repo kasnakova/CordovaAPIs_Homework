@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\packages\Common.Logging.2.0.0\lib\2.0\Common.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
@@ -333,6 +336,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeChest.Common\CodeChest.Common.csproj">
+      <Project>{173eda02-6efa-437f-8244-d66a127cdda7}</Project>
+      <Name>CodeChest.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CodeChest.Data\CodeChest.Data.csproj">
       <Project>{55aaf456-13d4-49c3-b11e-a5b4586d3183}</Project>
       <Name>CodeChest.Data</Name>

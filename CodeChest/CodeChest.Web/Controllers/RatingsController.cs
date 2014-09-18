@@ -21,6 +21,8 @@
         {
         }
 
+        // Route - api/Ratings/Rate?id={id}
+        // RatingDataModel - r.Score
         [Authorize]
         [HttpPost]
         public IHttpActionResult Rate(int id, RatingDataModel rating)

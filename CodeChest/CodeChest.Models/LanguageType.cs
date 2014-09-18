@@ -15,7 +15,7 @@
         Sass,
         Bash,
         C,
-        CPluPlus,
+        CPlusPlus,
         Python,
         Sql,
         Groovy,

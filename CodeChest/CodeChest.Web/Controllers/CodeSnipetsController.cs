@@ -14,6 +14,7 @@
     using CodeChest.Web.Infrastructure;
     using CodeChest.Web.DataModels;
 
+    //Route - api/CodeSnipets
     public class CodeSnipetsController : BaseApiController
     {
         private const string NO_CODE_SNIPET = "Code snippet does not exist or has been deleted!";
@@ -26,6 +27,7 @@
         {
         }
 
+        ////Route - api/CodeSnipets/All
         [HttpGet]
         public IHttpActionResult All()
         {
@@ -37,6 +39,7 @@
             return Ok(codeSnipetTitles);
         }
 
+        //Route - api/CodeSnipets/ById?id={id}
         [HttpGet]
         public IHttpActionResult ById(int id)
         {
@@ -56,6 +59,7 @@
             return Ok(codeSnipet);
         }
 
+        //Route - api/CodeSnipets/ByLanguage?language={language}
         [HttpGet]
         public IHttpActionResult ByLanguage(LanguageType language)
         {
@@ -68,6 +72,7 @@
             return Ok(codeSnipetTitles);
         }
 
+        //Route - api/CodeSnipets/ByTitle?title={title}
         [HttpGet]
         public IHttpActionResult ByTitle(string title)
         {
@@ -80,6 +85,7 @@
             return Ok(codeSnipetTitles);
         }
 
+        //Route - api/CodeSnipets/ByPage?page={page}
         [HttpGet]
         public IHttpActionResult ByPage(int page)
         {
@@ -91,6 +97,8 @@
             return Ok(codeSnipetTitles);
         }
 
+        //Route - api/CodeSnipets/Create
+        //CodeSnipetDataModel - Title = a.Title, Content = a.Content, Language = a.Language
         [Authorize]
         [HttpPost]
         public IHttpActionResult Create(CodeSnipetDataModel codeSnipet)
@@ -118,6 +126,8 @@
             return Ok(newCodeSnipet.Id);
         }
 
+        // Route - api/CodeSnipets/Update
+        //CodeSnipetDataModel - Title = a.Title, Content = a.Content, Language = a.Language
         [Authorize]
         [HttpPut]
         public IHttpActionResult Update(int id, CodeSnipetDataModel codeSnipet)
@@ -154,6 +164,7 @@
             return Ok(codeSnipet);
         }
 
+        // Route - api/CodeSnipets/Delete?id={id}
         [Authorize]
         [HttpDelete]
         public IHttpActionResult Delete(int id)
@@ -185,7 +196,7 @@
                 .Where(r => r.CodeSnipetId == id)
                 .Select(RatingDataModel.FromCodeSnipet);
 
-            double sum = 0;
+            double sum = 0; 
             double? score = null;
 
             if (ratings.Count() > 0)

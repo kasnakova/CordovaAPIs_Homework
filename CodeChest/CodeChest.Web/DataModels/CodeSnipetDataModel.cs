@@ -19,7 +19,7 @@
                     Title = a.Title,
                     Content = a.Content,
                     AddedOn = a.AddedOn,
-                    Language = a.Language
+                    Language = a.Language,
                     Poster = a.User.UserName,
                 };
             }

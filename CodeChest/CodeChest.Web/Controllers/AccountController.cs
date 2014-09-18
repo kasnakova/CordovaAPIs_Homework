@@ -1,32 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
-using System.Web.Http.ModelBinding;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.OAuth;
-using CodeChest.Web.Models;
-using CodeChest.Web.Providers;
-using CodeChest.Web.Results;
-using CodeChest.Models;
-using Spring.Social.Dropbox.Api;
-using System.IO;
-using Spring.Social.OAuth1;
-using Spring.Social.Dropbox.Connect;
-using System.Diagnostics;
-using Spring.IO;
-using CodeChest.Common;
-
-namespace CodeChest.Web.Controllers
+﻿namespace CodeChest.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Security.Claims;
+    using System.Security.Cryptography;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Http;
+    using System.Web.Http.ModelBinding;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin.Security;
+    using Microsoft.Owin.Security.Cookies;
+    using Microsoft.Owin.Security.OAuth;    
+    using Spring.IO;
+    using Spring.Social.Dropbox.Api;
+    using Spring.Social.OAuth1;
+    using Spring.Social.Dropbox.Connect;   
+
+    using CodeChest.Common;
+    using CodeChest.Data;
+    using CodeChest.Models;
+    using CodeChest.Web.Models;
+    using CodeChest.Web.Providers;
+    using CodeChest.Web.Results;    
+
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
@@ -41,16 +45,19 @@ namespace CodeChest.Web.Controllers
 
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private ICodeChestData data;
 
         public AccountController()
         {
         }
 
         public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+            ISecureDataFormat<AuthenticationTicket> accessTokenFormat,
+            ICodeChestData data)
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
+            this.data = data;
         }
 
         public ApplicationUserManager UserManager
@@ -136,6 +143,31 @@ namespace CodeChest.Web.Controllers
                 Logins = logins,
                 ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
             };
+        }
+
+        // Post api/Account/ChangeAvatar
+        [Route("ChangeAvatar")]
+        public IHttpActionResult ChangeAvatar(string avatarLocationUrl)
+        {
+            if (avatarLocationUrl == null)
+            {
+                return BadRequest("No avatar link provided");
+            }
+
+            var userId = User.Identity.GetUserId();
+            var user = data.Users.All().FirstOrDefault(u => u.Id == userId);
+            if (user != null)
+            {
+                return BadRequest("You must be logged in to change your avatar.");                
+            }
+
+            var dropboxConnection = new DropboxConnection();
+            dropboxConnection.UploadNewUserAvatar(user.LocalAvatarPath, user.UserName);
+
+            user.AvatarUrl = dropboxConnection.GetShareableLink(avatarLocationUrl);
+            data.SaveChanges();
+
+            return Ok();
         }
 
         // POST api/Account/ChangePassword
@@ -451,7 +483,7 @@ namespace CodeChest.Web.Controllers
             return null;
         }
 
-        //TODO: Remove code if unnecessary.
+        // TODO: Remove code if unnecessary.
         //public static void UploadNewUserAvatar(string avatarLocalPath, string username)
         //{
         //    dropbox = ConnectToDropboxAPI();

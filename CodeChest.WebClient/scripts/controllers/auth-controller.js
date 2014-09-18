@@ -11,6 +11,8 @@ define(function() {
 
         function AuthController() {}
 
+        AuthController.apiUrl = null;
+
         // TODO: Find a better solution
         AuthController.isLoggedIn = function() {
             var data;

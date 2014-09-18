@@ -337,18 +337,18 @@ namespace CodeChest.Web.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model, string localAvatarPath)
+        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = new User() { UserName = model.Email, Email = model.Email, RegistrationDate = DateTime.Now, LatestActivityDate = DateTime.Now, LocalAvatarPath = localAvatarPath };
+            var user = new User() { UserName = model.Email, Email = model.Email, RegistrationDate = DateTime.Now, LatestActivityDate = DateTime.Now};
 
             UploadNewUserAvatar(user.LocalAvatarPath, user.UserName);
 
-            user.AvatarUrl = GetShareableLink(localAvatarPath);
+            user.AvatarUrl = GetShareableLink(model.LocalAvatarPath);
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 

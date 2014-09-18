@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
+using System.Web.Http.Cors;
 
 namespace CodeChest.Web
 {
@@ -29,6 +30,7 @@ namespace CodeChest.Web
             config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; 
             config.Formatters.Remove(config.Formatters.XmlFormatter);
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
         }
     }
 }

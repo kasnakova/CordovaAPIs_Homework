@@ -1,24 +1,27 @@
-define(["jquery", "RegisterModel"], function($, RegisterModel) {
+define(["jquery", "AuthModel"], function($, AuthModel) {
     "use strict";
 
     var RegisterController;
     RegisterController = (function() {
         function RegisterController(apiUrl) {
             this._bindSubmitEvent();
-            this.registerModel = new RegisterModel(apiUrl);
+            this.authModel = new AuthModel(apiUrl);
         }
 
         RegisterController.prototype._bindSubmitEvent = function() {
+            var self = this;
+
             $(document).on("click", "#sign-up-form > button", function() {
                 var $this = $(this),
+                    $form = $this.parent(),
                     data = {
-                        username: $this.siblings("input[name='username']:first-child").val(),
-                        password: $this.siblings("input[name='password']:first-child").val(),
-                        email: $this.siblings("input[name='email']:first-child").val()
+                        username: $form.find("input[name='username']").val(),
+                        password: $form.find("input[name='password']").val(),
+                        confirmPassword: $form.find("input[name='rep-password']").val(),
+                        email: $form.find("input[name='email']").val()
                     };
 
-                this.registerModel.registerUser(data);
-                alert("asd");
+                self.authModel.registerUser(data);
             });
         };
 

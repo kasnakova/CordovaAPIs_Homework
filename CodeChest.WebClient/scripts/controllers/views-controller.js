@@ -1,5 +1,5 @@
-define(["jquery", "handlebars", "q", "AuthController", "SearchController", "RegisterController", "FakeDataModel", "HandlebarsHelper"],
-    function($, Handlebars, Q, AuthController, SearchController, RegisterController, FakeDataModel) {
+define(["jquery", "handlebars", "q", "AuthController", "SearchController", "RegisterController", "LoginController", "FakeDataModel", "HandlebarsHelper"],
+    function($, Handlebars, Q, AuthController, SearchController, RegisterController, LoginController, FakeDataModel) {
 
     "use strict";
 
@@ -64,8 +64,11 @@ define(["jquery", "handlebars", "q", "AuthController", "SearchController", "Regi
         };
 
         ViewsController.prototype.loadSignIn = function() {
+            var controller;
+
             if (!AuthController.isLoggedIn()) {
                 this._routineLoad(Paths.SIGN_IN_HTML);
+                controller = new LoginController(this.apiUrl);
             } else {
                 this.home();
             }

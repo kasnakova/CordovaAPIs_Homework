@@ -33,7 +33,8 @@
     require(["sammy", "jquery", "AuthController", "ViewsController", "Extensions", "Init"],
         function(Sammy, $, AuthController, ViewsController) {
 
-        var viewsController = new ViewsController("#main", "http://testing-64.apphb.com/"),
+        var API_URL = "http://localhost:11971/",
+            viewsController = new ViewsController("#main", API_URL),
             app;
 
         // >> Faking login

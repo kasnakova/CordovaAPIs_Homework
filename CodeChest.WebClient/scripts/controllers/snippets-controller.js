@@ -5,10 +5,31 @@ define(["jquery", "SnippetsModel"], function($, SnippetsModel) {
     SnippetsController = (function() {
         function SnippetsController(apiUrl) {
             this.snippetsModel = new SnippetsModel(apiUrl);
-            this._bindOnAvatarSubmit();
         }
 
-        SnippetsController.prototype._bindOnAvatarSubmit = function() {
+        SnippetsController.prototype.bindOnSnippetAdd = function() {
+            var self = this;
+
+            $(document).on("submit", "#add-snippet", function() {
+                var $this = $(this),
+                    data = {
+                        title: $this.find(".title").val(),
+                        language: $this.find(".language").val(),
+                        content: $this.find(".code-input").val()
+                    };
+
+                self.snippetsModel.postSnippet(data).then(
+                    function() {
+                        console.log("Great success!");
+                    },
+                    function() {
+
+                    }
+                );
+            });
+        };
+
+        SnippetsController.prototype.bindOnSnippetModification = function(id) {
             var self = this;
 
             $(document).on("submit", "#modify-snippet", function() {
@@ -19,7 +40,7 @@ define(["jquery", "SnippetsModel"], function($, SnippetsModel) {
                         content: $this.find(".code-input").val()
                     };
 
-                self.snippetsModel.postSnippet(data).then(
+                self.snippetsModel.modifySnippet(id, data).then(
                     function() {
                         console.log("Great success!");
                     },

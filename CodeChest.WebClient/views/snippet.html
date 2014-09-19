@@ -1,10 +1,10 @@
 <h2>{{Title}}</h2>
 <div id="snippet-info">
-    <div class="avatar"></div>
+    <div class="avatar"><img src="img/def_avatar.png" width="64" height="64" alt="{{Poster}}" /></div>
     <div class="person-info">
         <p><a href="{{user.url}}" class="golden">{{Poster}}</a></p>
         <p><span class="light">Added on {{AddedOn}}</span></p>
-        <p><span class="lang">{{Language}}</span></p>
+        <p><span class="lang">{{#getLangById Language}}{{/getLangById}}</span></p>
         {{#isAuthor user.name}}
         <div class="access-lvl on-page"></div>
         {{/isAuthor}}
@@ -27,6 +27,6 @@
         {{/isAuthor}}
     </div>
 </div>
-<pre class="line-numbers"><code class="language-javascript">{{Content}}
+<pre class="line-numbers"><code class="{{#getLangClassById Language}}{{/getLangClassById}}">{{Content}}
 </code></pre>
 <p id="prism-credits">Code highlighting by <a href="http://prismjs.com/" target="_blank">PrismJS</a></p>

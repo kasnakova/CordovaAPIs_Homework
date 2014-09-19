@@ -25,6 +25,7 @@ define([
             SIGN_UP_HTML: "views/sign-up.html",
             USER_SNIP_HTML: "views/user-snippets.html",
             ADD_SNIP_HTML: "views/add-snippet.html",
+            MOD_SNIP_HTML: "views/modify-snippet.html",
             SNIPPET_HTML: "views/snippet.html",
             USR_SETTINGS_HTML: "views/user-settings.html",
             USR_SEC_SET_HTML: "views/user-security-settings.html",
@@ -125,6 +126,31 @@ define([
             });
         };
 
+        ViewsController.prototype.modifySnippet = function(id) {
+            var self = this,
+                controller = new SnippetsController(this.apiUrl),
+                dataModel = new SnippetsModel(this.apiUrl);
+
+            _clearWrapper.call(this);
+            $.get(Paths.MOD_SNIP_HTML, function(templ) {
+                var compiled = Handlebars.compile(templ);
+
+                dataModel.getSnippet(id).then(
+                    function(data) {
+                        if (data.Poster === AuthController.getAuth().name) {
+                            self.wrapper.html(compiled(data));
+                            controller.bindOnSnippetModification(id);
+                        } else {
+                            self.home();
+                        }
+                    },
+                    function() {
+                        self.home();
+                    }
+                );
+            });
+        };
+
         ViewsController.prototype.loadSnippet = function(id) {
             var self = this,
                 dataModel = new SnippetsModel(this.apiUrl);
@@ -200,6 +226,7 @@ define([
 
             this._routineLoad(Paths.ADD_SNIP_HTML);
             var controller = new SnippetsController(this.apiUrl);
+            controller.bindOnSnippetAdd();
         };
 
         ViewsController.prototype.loadProfileSettings = function() {

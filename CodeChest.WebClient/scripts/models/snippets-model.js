@@ -45,6 +45,27 @@ define(["jquery", "q", "AuthController"], function($, Q, AuthController) {
             return deferred.promise;
         };
 
+        SnippetsModel.prototype.modifySnippet = function(snippetId, dataObj) {
+            var deferred = Q.defer();
+
+            $.ajax({
+                url: this.apiUrl + "api/CodeSnipets/Update?id=" + snippetId,
+                type: "PUT",
+                data: dataObj,
+                headers: {
+                    "Authorization": AuthController.giveMeAuthorization()
+                },
+                success: function(msg) {
+                    deferred.resolve(msg);
+                },
+                error: function(msg) {
+                    deferred.reject(msg);
+                }
+            });
+
+            return deferred.promise;
+        };
+
         return SnippetsModel;
     }());
 

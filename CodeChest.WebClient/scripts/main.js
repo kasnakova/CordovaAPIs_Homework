@@ -78,8 +78,8 @@
                 viewsController.addSnippet();
             });
 
-            this.get("#/modify-snippet/:guid", function() {
-                // TODO: Implement
+            this.get("#/modify-snippet/:id", function() {
+                viewsController.modifySnippet(this.params.id);
             });
 
             this.get("#/profile", function() {

@@ -3,7 +3,7 @@
         <ul>
             {{#snippets}}
             <li>
-                <p><a href="{{url}}" class="title">{{title}}</a></p>
+                <p><a href="#/snippet/{{Id}}" class="title">{{Title}}</a></p>
                 <div class="rating">
                     <div class="stars">
                         {{#starRating rating}}{{/starRating}}
@@ -15,7 +15,7 @@
                         <p><a href="">YES</a> <a href="">NO</a></p>
                     </div>
                     <div class="access-lvl {{#if isPrivate}} private {{/if}}" title="Change access level"></div>
-                    <span class="added-by">Added on {{addedOn}}</span>
+                    <span class="added-by">Added on {{AddedOn}}</span>
                 </div>
             </li>
             {{/snippets}}

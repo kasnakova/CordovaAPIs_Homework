@@ -8,10 +8,11 @@ define([
     "LoginController",
     "SnippetsController",
     "UserController",
+    "UserModel",
     "SnippetsModel",
     "FakeDataModel",
     "HandlebarsHelper"],
-    function($, Handlebars, Q, AuthController, SearchController, RegisterController, LoginController, SnippetsController, UserController, SnippetsModel,  FakeDataModel) {
+    function($, Handlebars, Q, AuthController, SearchController, RegisterController, LoginController, SnippetsController, UserController, UserModel, SnippetsModel,  FakeDataModel) {
 
     "use strict";
 
@@ -74,7 +75,7 @@ define([
                 this._publicIndex();
             } else {
                 // Put first user language on place of 'C#'
-                window.location = "#/snippets/C#/1";
+                window.location = "#/snippets/Java/0";
             }
         };
 
@@ -183,7 +184,8 @@ define([
                 return;
             }
 
-            var self = this;
+            var self = this,
+                userModel = new UserModel(this.apiUrl);
 
             $.get(Paths.USER_SNIP_HTML, function(data) {
                 self.wrapper.html(data);
@@ -193,9 +195,14 @@ define([
                         langList = $("#lang-list");
 
                     // Language list
-                    self.data.getLanguageList().then(function(list) {
+                    userModel.getUserLanguages().then(function(list) {
+                        var wrapped = [];
+                        list.forEach(function(lang) {
+                            wrapped.push({name: lang});
+                        });
+
                         langList.html(compiled({
-                            languages: list
+                            languages: wrapped
                         }));
 
                         langList.find("li[data-info=" + language + "]").addClass("selected");
@@ -211,8 +218,12 @@ define([
                     templateHtml = $("#snippets-list-template").html();
                     compiled = Handlebars.compile(templateHtml);
 
-                    self.data.getSnippetsList().then(function(list) {
-                        $mainContent.html(compiled(list)).hide().fadeIn(TRANS_MS);
+                    userModel.getUserSnippets(page, language).then(function(list) {
+                        var wrapper = {
+                            snippets: list
+                        };
+
+                        $mainContent.html(compiled(wrapper)).hide().fadeIn(TRANS_MS);
                     });
                 });
             });

@@ -105,4 +105,17 @@ define(["handlebars", "AuthController"], function(Handlebars, AuthController) {
 
         return options;
     });
+
+    Handlebars.registerHelper("getLangName", function(enumName) {
+        var name;
+
+        LANG_ENUM.forEach(function(item) {
+            if (enumName === item.enumName) {
+                name = item.actualName;
+                return;
+            }
+        });
+
+        return name;
+    });
 });

@@ -56,7 +56,19 @@ define(["jquery"], function($) {
                 }
             });
         };
-        
+
+        UiController.loadingSpinner = function() {
+            var $loading = $("#loading-spinner");
+
+            $(document)
+                .ajaxStart(function () {
+                    $loading.show();
+                })
+                .ajaxStop(function () {
+                    $loading.hide();
+                });
+        };
+
         return UiController;
     }());
 

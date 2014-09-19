@@ -8,4 +8,5 @@ define(["UiController"], function(UiController) {
     UiController.clearPopUps();
     UiController.setSearchAction();
     UiController.enableTextareaTab();
+    UiController.loadingSpinner();
 });

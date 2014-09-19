@@ -49,6 +49,46 @@ define(["jquery", "q", "AuthController"], function($, Q, AuthController) {
             return deferred.promise;
         };
 
+        UserModel.prototype.getUserLanguages = function() {
+            var deferred = Q.defer();
+
+            $.ajax({
+                url: this.apiUrl + "api/CodeSnipets/GetLanguagesUsed",
+                type: "GET",
+                headers: {
+                    "Authorization": AuthController.giveMeAuthorization()
+                },
+                success: function(data) {
+                    deferred.resolve(data);
+                },
+                error: function(msg) {
+                    deferred.reject(msg);
+                }
+            });
+
+            return deferred.promise;
+        };
+
+        UserModel.prototype.getUserSnippets = function(page, language) {
+            var deferred = Q.defer();
+
+            $.ajax({
+                url: this.apiUrl + "api/CodeSnipets/GetCurrent?page=" + page + "&language=" + language,
+                type: "GET",
+                headers: {
+                    "Authorization": AuthController.giveMeAuthorization()
+                },
+                success: function(data) {
+                    deferred.resolve(data);
+                },
+                error: function(msg) {
+                    deferred.reject(msg);
+                }
+            });
+
+            return deferred.promise;
+        };
+
         return UserModel;
     }());
 

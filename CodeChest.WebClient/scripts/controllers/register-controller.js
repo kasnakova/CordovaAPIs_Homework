@@ -4,21 +4,20 @@ define(["jquery", "AuthModel"], function($, AuthModel) {
     var RegisterController;
     RegisterController = (function() {
         function RegisterController(apiUrl) {
-            this._bindSubmitEvent();
+            this._bindOnAvatarSubmit();
             this.authModel = new AuthModel(apiUrl);
         }
 
-        RegisterController.prototype._bindSubmitEvent = function() {
+        RegisterController.prototype._bindOnAvatarSubmit = function() {
             var self = this;
 
-            $(document).on("click", "#sign-up-form > button", function() {
+            $(document).on("submit", "#sign-up-form", function() {
                 var $this = $(this),
-                    $form = $this.parent(),
                     data = {
-                        username: $form.find("input[name='username']").val(),
-                        password: $form.find("input[name='password']").val(),
-                        confirmPassword: $form.find("input[name='rep-password']").val(),
-                        email: $form.find("input[name='email']").val()
+                        username: $this.find("input[name='username']").val(),
+                        password: $this.find("input[name='password']").val(),
+                        confirmPassword: $this.find("input[name='rep-password']").val(),
+                        email: $this.find("input[name='email']").val()
                     };
 
                 self.authModel.registerUser(data);

@@ -23,7 +23,7 @@ define(function() {
 
             data = this.getAuth();
 
-            return data.name !== null && data.sessionKey !== null;
+            return data.name !== null && data.token !== null;
         };
 
         AuthController.getAuth = function() {
@@ -34,13 +34,20 @@ define(function() {
 
         AuthController.setAuth = function(data) {
             var obj = {
-                user: data.userName,
-                token: data.access_token,
-                tokenType: data.token_type,
-                expiresIn: data.expires_in
+                name: data["userName"],
+                token: data["access_token"],
+                tokenType: data["token_type"],
+                expiresIn: data[".expires"],
+                avatar: "img/def_avatar.png"
             };
 
             localStorage.setItem(AUTH_KEY, JSON.stringify(obj));
+        };
+
+        AuthController.giveMeAuthorization = function() {
+            var authObj = this.getAuth();
+
+            return authObj.tokenType + " " + authObj.token;
         };
 
         AuthController.removeAuth = function() {

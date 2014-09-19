@@ -1,5 +1,17 @@
-define(["jquery", "handlebars", "q", "AuthController", "SearchController", "RegisterController", "LoginController", "FakeDataModel", "HandlebarsHelper"],
-    function($, Handlebars, Q, AuthController, SearchController, RegisterController, LoginController, FakeDataModel) {
+define([
+    "jquery",
+    "handlebars",
+    "q",
+    "AuthController",
+    "SearchController",
+    "RegisterController",
+    "LoginController",
+    "SnippetsController",
+    "UserController",
+    "SnippetsModel",
+    "FakeDataModel",
+    "HandlebarsHelper"],
+    function($, Handlebars, Q, AuthController, SearchController, RegisterController, LoginController, SnippetsController, UserController, SnippetsModel,  FakeDataModel) {
 
     "use strict";
 
@@ -14,6 +26,8 @@ define(["jquery", "handlebars", "q", "AuthController", "SearchController", "Regi
             USER_SNIP_HTML: "views/user-snippets.html",
             ADD_SNIP_HTML: "views/add-snippet.html",
             SNIPPET_HTML: "views/snippet.html",
+            USR_SETTINGS_HTML: "views/user-settings.html",
+            USR_SEC_SET_HTML: "views/user-security-settings.html",
             LOGGED_IN_IDX: "views/logged-in-index.html",
             TOP_SNIPPETS_TEMPL: "views/templates/index-top-snippets-template.html",
             SEARCH_TEMPL: "views/templates/search-results-template.html",
@@ -64,11 +78,15 @@ define(["jquery", "handlebars", "q", "AuthController", "SearchController", "Regi
         };
 
         ViewsController.prototype.loadSignIn = function() {
-            var controller;
+            var self = this,
+                controller;
 
             if (!AuthController.isLoggedIn()) {
                 this._routineLoad(Paths.SIGN_IN_HTML);
-                controller = new LoginController(this.apiUrl);
+                controller = new LoginController(this.apiUrl, function() {
+                    self.loadHeader();
+                    self.home();
+                });
             } else {
                 this.home();
             }
@@ -108,20 +126,26 @@ define(["jquery", "handlebars", "q", "AuthController", "SearchController", "Regi
         };
 
         ViewsController.prototype.loadSnippet = function(id) {
-            var self = this;
+            var self = this,
+                dataModel = new SnippetsModel(this.apiUrl);
 
             _clearWrapper.call(this);
             $.get(Paths.SNIPPET_HTML, function(templ) {
                 var compiled = Handlebars.compile(templ);
 
-                self.data.getASnippet().then(function(data) {
-                    data.isOwner = true;
+                dataModel.getSnippet(id).then(
+                    function(data) {
+                        data.isOwner = true;
 
-                    require(["prism"], function(Prism) {
-                        self.wrapper.html(compiled(data));
-                        Prism.highlightAll();
-                    });
-                });
+                        require(["prism"], function(Prism) {
+                            self.wrapper.html(compiled(data));
+                            Prism.highlightAll();
+                        });
+                    },
+                    function() {
+                        self.home();
+                    }
+                );
             });
         };
 
@@ -175,6 +199,47 @@ define(["jquery", "handlebars", "q", "AuthController", "SearchController", "Regi
             }
 
             this._routineLoad(Paths.ADD_SNIP_HTML);
+            var controller = new SnippetsController(this.apiUrl);
+        };
+
+        ViewsController.prototype.loadProfileSettings = function() {
+            if (!AuthController.isLoggedIn()) {
+                this.home();
+                return;
+            }
+
+            var self = this,
+                controller;
+
+            _clearWrapper.call(this);
+            $.get(Paths.USR_SETTINGS_HTML, function(templ) {
+                var compiled = Handlebars.compile(templ);
+
+                self._setHtml(compiled(AuthController.getAuth()));
+            });
+
+            controller = new UserController(this.apiUrl);
+            controller.bindOnAvatarSubmit();
+        };
+
+        ViewsController.prototype.loadSecuritySettings = function() {
+            if (!AuthController.isLoggedIn()) {
+                this.home();
+                return;
+            }
+
+            var self = this,
+                controller;
+
+            _clearWrapper.call(this);
+            $.get(Paths.USR_SEC_SET_HTML, function(templ) {
+                var compiled = Handlebars.compile(templ);
+
+                self._setHtml(compiled(AuthController.getAuth()));
+            });
+
+            controller = new UserController(this.apiUrl);
+            controller.bindOnPasswordSubmit();
         };
 
         ViewsController.prototype._publicIndex = function() {

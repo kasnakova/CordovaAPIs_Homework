@@ -1,0 +1,35 @@
+<h2>{{name}}'s Profile</h2>
+<div id="sidebar">
+    <img src="{{avatar}}" width="128" height="128" alt="{{name}}" />
+    <div class="info">
+        <p class="name">{{name}}</p>
+        <p>{{name}} Peshev</p>
+        <p><span class="light">Joined on</span> 17/09/2014</p>
+        <a href="#/profile">General settings</a>
+    </div>
+</div>
+<div id="main-content" class="profile">
+    <div id="security-settings">
+        <h3>Change Password</h3>
+        <hr/>
+        <form id="change-password-form" action="#/">
+            <div class="info-container">
+                <div class="description"><label for="old-password">Old Password</label></div>
+                <div class="content"><input id="old-password" type="password" /></div>
+            </div>
+            <div></div>
+            <div class="info-container">
+                <div class="description"><label for="new-password">New Password</label></div>
+                <div class="content"><input id="new-password" type="password" /></div>
+            </div>
+            <div class="info-container">
+                <div class="description"><label for="rep-password">Repeat Password</label></div>
+                <div class="content"><input id="rep-password" type="password" /></div>
+            </div>
+            <div class="info-container">
+                <div class="description"></div>
+                <div class="content"><input type="submit" class="default" value="Change" /></div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,53 +1,17 @@
 define(["jquery", "q", "AuthController"], function($, Q, AuthController) {
     "use strict";
 
-    var AuthModel;
-    AuthModel = (function() {
-        function AuthModel(apiUrl) {
+    var UserModel;
+    UserModel = (function() {
+        function UserModel(apiUrl) {
             this.apiUrl = apiUrl;
         }
 
-        AuthModel.prototype.registerUser = function(dataObj) {
+        UserModel.prototype.changeAvatar = function(location) {
             var deferred = Q.defer();
 
             $.ajax({
-                url: this.apiUrl + "api/Account/Register",
-                type: "POST",
-                data: dataObj,
-                success: function(msg) {
-                    deferred.resolve(msg);
-                },
-                error: function(msg) {
-                    deferred.reject(msg);
-                }
-            });
-
-            return deferred.promise;
-        };
-
-        AuthModel.prototype.loginUser = function(dataObj) {
-            var deferred = Q.defer();
-
-            $.ajax({
-                url: this.apiUrl + "Token",
-                type: "POST",
-                data: dataObj,
-                success: function(data) {
-                    deferred.resolve(data);
-                },
-                error: function(msg) {
-                    deferred.reject(msg);
-                }
-            });
-
-            return deferred.promise;
-        };
-
-        AuthModel.prototype.logoutUser = function() {
-            var deferred = Q.defer();
-
-            $.ajax({
-                url: this.apiUrl + "api/Account/Logout",
+                url: this.apiUrl + "api/Account/ChangeAvatar?avatarLocationUrl=" + location,
                 type: "POST",
                 headers: {
                     "Authorization": AuthController.giveMeAuthorization()
@@ -56,15 +20,37 @@ define(["jquery", "q", "AuthController"], function($, Q, AuthController) {
                     deferred.resolve(msg);
                 },
                 error: function(msg) {
-                    deferred.resolve(msg);
+                    deferred.reject(msg);
                 }
             });
 
             return deferred.promise;
         };
 
-        return AuthModel;
+        UserModel.prototype.changePassword = function(dataObj) {
+            var deferred = Q.defer();
+
+            $.ajax({
+                url: this.apiUrl + "api/Account/ChangePassword",
+                type: "POST",
+                data: dataObj,
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                headers: {
+                    "Authorization": AuthController.giveMeAuthorization()
+                },
+                success: function(msg) {
+                    deferred.resolve(msg);
+                },
+                error: function(msg) {
+                    deferred.reject(msg);
+                }
+            });
+
+            return deferred.promise;
+        };
+
+        return UserModel;
     }());
 
-    return AuthModel;
+    return UserModel;
 });

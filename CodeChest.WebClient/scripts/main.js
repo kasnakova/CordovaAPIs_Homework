@@ -9,15 +9,26 @@
             "q": "libs/q-2.0",
             "prism": "libs/prism",
             "Init": "init",
-            "FakeDataModel": "models/fake-data-model",
-            "AuthModel": "models/auth-model",
+
+            // Helpers
             "Extensions": "helpers/extensions",
             "HandlebarsHelper": "helpers/handlebars-helper",
+
+            // Models
+            "FakeDataModel": "models/fake-data-model",
+            "AuthModel": "models/auth-model",
+            "SnippetsModel": "models/snippets-model",
+            "UserModel": "models/user-model",
+
+            // Controllers
             "AuthController": "controllers/auth-controller",
             "ViewsController": "controllers/views-controller",
             "SearchController": "controllers/search-controller",
             "RegisterController": "controllers/register-controller",
             "LoginController": "controllers/login-controller",
+            "LogoutController": "controllers/logout-controller",
+            "SnippetsController": "controllers/snippets-controller",
+            "UserController": "controllers/user-controller",
             "UiController": "controllers/ui-controller"
         },
         shim: {
@@ -30,24 +41,13 @@
         }
     });
 
-    require(["sammy", "jquery", "AuthController", "ViewsController", "Extensions", "Init"],
-        function(Sammy, $, AuthController, ViewsController) {
+    require(["sammy", "jquery", "AuthController", "ViewsController", "LogoutController", "Extensions", "Init"],
+        function(Sammy, $, AuthController, ViewsController, LogoutController) {
 
-        var API_URL = "http://localhost:11971/",
+        var //API_URL = "http://localhost:11971/",
+            API_URL = "http://testing-64.apphb.com/",
             viewsController = new ViewsController("#main", API_URL),
             app;
-
-        // >> Faking login
-
-//        AuthController.setAuth({
-//            name: "Pesho_le",
-//            sessionKey: "132rjfauraea232dw",
-//            avatar: "img/def_avatar.png"
-//        });
-
-        //AuthController.removeAuth();
-
-        // Faking login END
 
         viewsController.loadHeader();
 
@@ -78,13 +78,16 @@
                 viewsController.addSnippet();
             });
 
-
             this.get("#/modify-snippet/:guid", function() {
                 // TODO: Implement
             });
 
+            this.get("#/profile", function() {
+                viewsController.loadProfileSettings();
+            });
+
             this.get("#/profile/security", function() {
-                // TODO: Implement
+                viewsController.loadSecuritySettings();
             });
 
             this.get("#/user/:guid", function() {
@@ -96,6 +99,7 @@
             });
 
             this.get("#/logout", function() {
+                var controller = new LogoutController(API_URL);
                 AuthController.removeAuth();
                 viewsController.loadHeader();
                 viewsController.home();

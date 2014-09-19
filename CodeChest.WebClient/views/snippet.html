@@ -1,16 +1,16 @@
-<h2>{{title}}</h2>
+<h2>{{Title}}</h2>
 <div id="snippet-info">
     <div class="avatar"></div>
     <div class="person-info">
-        <p><a href="{{user.url}}" class="golden">{{user.name}}</a></p>
-        <p><span class="light">Added on {{addedOn}}</span></p>
-        <p><span class="lang">{{language}}</span></p>
+        <p><a href="{{user.url}}" class="golden">{{Poster}}</a></p>
+        <p><span class="light">Added on {{AddedOn}}</span></p>
+        <p><span class="lang">{{Language}}</span></p>
         {{#isAuthor user.name}}
         <div class="access-lvl on-page"></div>
         {{/isAuthor}}
     </div>
     <div class="additional-ops">
-        {{#isAuthor user.name}}
+        {{#isAuthor Poster}}
         <div class="rating-bar">
         {{else}}
         <div class="rating-bar rateable">
@@ -18,7 +18,7 @@
             <div class="selected" data-info="1" title="Rate with 1"><div class="selected" data-info="2" title="Rate with 2"><div class="selected" data-info="3" title="Rate with 3"><div data-info="4" title="Rate with 4"><div data-info="5" title="Rate with 5"></div></div></div></div></div>
         </div>
         <p class="rated-by">Rated by {{ratedBy}} people</p>
-        {{#isAuthor user.name}}
+        {{#isAuthor Poster}}
             <p class="operations"><a href="">Delete</a> <a href="">Edit</a></p>
             <div class="confirm-del-msg">
                 <p>Delete the snippet?</p>
@@ -27,6 +27,6 @@
         {{/isAuthor}}
     </div>
 </div>
-<pre class="line-numbers"><code class="language-javascript">{{content}}
+<pre class="line-numbers"><code class="language-javascript">{{Content}}
 </code></pre>
 <p id="prism-credits">Code highlighting by <a href="http://prismjs.com/" target="_blank">PrismJS</a></p>

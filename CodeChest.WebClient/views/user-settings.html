@@ -1,0 +1,71 @@
+<h2>{{name}}'s Profile</h2>
+<div id="sidebar">
+    <img src="{{avatar}}" width="128" height="128" alt="{{name}}" />
+    <div class="info">
+        <p class="name">{{name}}</p>
+        <p>{{name}} Peshev</p>
+        <p><span class="light">Joined on</span> 17/09/2014</p>
+        <a href="#/profile/security">Security settings</a>
+    </div>
+</div>
+<div id="main-content" class="profile">
+    <div id="general-settings">
+        <h3>General Information</h3>
+        <hr/>
+        <form id="change-avatar-form" action="#/">
+            <div class="info-container">
+                <div class="description">Username</div>
+                <div class="content"><input type="text" value="{{name}}" readonly /></div>
+            </div>
+            <div class="info-container">
+                <div class="description">Email <span class="light">(not public)</span></div>
+                <div class="content"><input type="text" value="sample@gmail.com" readonly /></div>
+            </div>
+            <div></div>
+<!--            <div class="info-container">
+                <div class="description"><label>First Name</label></div>
+                <div class="content"><input type="text" value="Pesho" /></div>
+            </div>
+            <div></div>
+            <div class="info-container">
+                <div class="description"><label>Last Name</label></div>
+                <div class="content"><input type="text" value="Peshev" /></div>
+            </div>-->
+            <div class="info-container">
+                <div class="description">Avatar</div>
+                <div class="content"><input type="text" name="avatar-url" value="{{avatar}}" /></div>
+            </div>
+            <div class="info-container">
+                <div class="description">Total Snippets</div>
+                <div class="content norm-padding"><strong>4423</strong></div>
+            </div>
+            <div class="info-container">
+                <div class="description">Last Activity</div>
+                <div class="content norm-padding"><strong>12 Jan 2012 at 12:12</strong></div>
+            </div>
+            <div class="info-container">
+                <div class="description"></div>
+                <div class="content"><input type="submit" class="default" value="Change"></div>
+            </div>
+        </form>
+<!--        <h3>Snippets Statistics</h3>
+        <hr/>
+        <div id="snippets-stats">
+            <div class="snip-stats">
+                <p>C#</p>
+                <p>4885</p>
+                <p>snippets</p>
+            </div>
+            <div class="snip-stats">
+                <p>Javascript</p>
+                <p>4885</p>
+                <p>snippets</p>
+            </div>
+            <div class="snip-stats">
+                <p>PHP</p>
+                <p>4885</p>
+                <p>snippets</p>
+            </div>
+        </div>-->
+    </div>
+</div>

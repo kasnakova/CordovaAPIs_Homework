@@ -97,6 +97,41 @@
             return Ok(codeSnipetTitles);
         }
 
+        //Route - api/CodeSnipets/Filter?language={language}&page={page}&title={title}
+        [HttpGet]
+        public IHttpActionResult Filter(LanguageType? language, int? page, string title)
+        {
+            int actualPage = page != null ? (int)page : 0;            
+
+            var codeSnipetTitles = this.data
+                .CodeSnipets.All()
+                .Where(c => (title != null ? c.Title.Contains(title) : true)
+                    && (language.HasValue ? (c.Language == language) : true))
+                .OrderBy(c => c.AddedOn)
+                .Skip(CODESNIPETS_ON_PAGE * actualPage)
+                .Take(CODESNIPETS_ON_PAGE)
+                .Select(CodeSnipetsPartialDataModel.FromCodeSnipet).ToList();
+            return Ok(codeSnipetTitles);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IHttpActionResult GetCurrent(int page)
+        {
+            var id = this.userIdProvider.GetUserId();
+
+            var codeSnipetTitle = this.data
+                .CodeSnipets
+                .All()
+                .Where(c => c.UserId == id)
+                .OrderBy(c => c.AddedOn)
+                .Skip(CODESNIPETS_ON_PAGE * page)
+                .Take(CODESNIPETS_ON_PAGE)
+                .Select(CodeSnipetsPartialDataModel.FromCodeSnipet);
+
+            return Ok(codeSnipetTitle);
+        }
+
         //Route - api/CodeSnipets/Create
         //CodeSnipetDataModel - Title = a.Title, Content = a.Content, Language = a.Language
         [Authorize]

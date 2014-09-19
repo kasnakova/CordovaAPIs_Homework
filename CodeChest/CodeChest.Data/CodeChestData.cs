@@ -9,10 +9,10 @@
 
     public class CodeChestData : ICodeChestData
     {
-        private DbContext context;
+        private ICodeChestDbContext context;
         private IDictionary<Type, object> repositories;
 
-        public CodeChestData(DbContext context)
+        public CodeChestData(ICodeChestDbContext context)
         {
             this.context = context;
             this.repositories = new Dictionary<Type, object>();

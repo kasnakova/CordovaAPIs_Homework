@@ -10,7 +10,7 @@
     using CodeChest.Data.Migrations;
     using CodeChest.Models;    
 
-    public class CodeChestDbContext : IdentityDbContext<User>
+    public class CodeChestDbContext : IdentityDbContext<User>, ICodeChestDbContext
     {
         public CodeChestDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -26,6 +26,16 @@
         public IDbSet<CodeSnipet> CodeSnipets { get; set; }
 
         public IDbSet<Rating> Ratings { get; set; }
+
+        public new int SaveChanges()
+        {
+            return this.SaveChanges();
+        }
+
+        public new IDbSet<TEntity> Set<TEntity>() where TEntity : class
+        {
+            return base.Set<TEntity>();
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

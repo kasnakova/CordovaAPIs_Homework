@@ -5,10 +5,10 @@
 
     public class GenericRepository<T> : IRepository<T> where T : class
     {
-        private DbContext context;
+        private ICodeChestDbContext context;
         private IDbSet<T> set;
 
-        public GenericRepository(DbContext context)
+        public GenericRepository(ICodeChestDbContext context)
         {
             this.context = context;
             this.set = context.Set<T>();

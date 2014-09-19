@@ -101,7 +101,7 @@
         [HttpGet]
         public IHttpActionResult Filter(LanguageType? language, int? page, string title)
         {
-            int actualPage = page != null ? (int)page : 0;            
+            int actualPage = page != null ? (int)page : 0;
 
             var codeSnipetTitles = this.data
                 .CodeSnipets.All()
@@ -110,10 +110,13 @@
                 .OrderBy(c => c.AddedOn)
                 .Skip(CODESNIPETS_ON_PAGE * actualPage)
                 .Take(CODESNIPETS_ON_PAGE)
-                .Select(CodeSnipetsPartialDataModel.FromCodeSnipet).ToList();
+                .Select(CodeSnipetsPartialDataModel.FromCodeSnipet)
+                .ToList();
+
             return Ok(codeSnipetTitles);
         }
 
+        //Route - api/CodeSnipets/GetCurrent?page={page}
         [Authorize]
         [HttpGet]
         public IHttpActionResult GetCurrent(int page)
@@ -127,9 +130,33 @@
                 .OrderBy(c => c.AddedOn)
                 .Skip(CODESNIPETS_ON_PAGE * page)
                 .Take(CODESNIPETS_ON_PAGE)
-                .Select(CodeSnipetsPartialDataModel.FromCodeSnipet);
+                .Select(CodeSnipetsPartialDataModel.FromCodeSnipet)
+                .ToList();
 
             return Ok(codeSnipetTitle);
+        }
+
+        //Route api/CodeSnipets/GetLanguagesUsed
+        [Authorize]
+        [HttpGet]
+        public IHttpActionResult GetLanguagesUsed()
+        {
+            var id = this.userIdProvider.GetUserId();
+
+            var languagesUsed = this.data
+                .CodeSnipets
+                .All()
+                .Where(c => c.UserId == id)
+                .Select(c => c.Language)
+                .Distinct();
+
+            ICollection<string> result = new List<string>();
+            foreach (var language in languagesUsed)
+            {
+                result.Add(Enum.GetName(typeof(LanguageType), language));
+            }
+
+            return Ok(result);
         }
 
         //Route - api/CodeSnipets/Create
@@ -231,7 +258,7 @@
                 .Where(r => r.CodeSnipetId == id)
                 .Select(RatingDataModel.FromCodeSnipet);
 
-            double sum = 0; 
+            double sum = 0;
             double? score = null;
 
             if (ratings.Count() > 0)

@@ -64,6 +64,7 @@
     <Compile Include="CodeChestData.cs" />
     <Compile Include="CodeChestDbContext.cs" />
     <Compile Include="ICodeChestData.cs" />
+    <Compile Include="ICodeChestDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />

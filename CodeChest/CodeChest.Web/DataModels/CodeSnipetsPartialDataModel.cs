@@ -25,9 +25,7 @@
             }
         }
 
-        public int Id { get; set; }
-        //TODO: da se reshi dali samo title shte se pokazva pri nachalnoto tursene i nachalnata stranica ili i drugi neshta
-        //public string UserId { get; set; }
+        public int Id { get; set; }        
 
         [Required]
         public string Title { get; set; }

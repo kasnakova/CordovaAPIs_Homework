@@ -31,18 +31,38 @@
             {
                 return BadRequest(ModelState);
             }
+
+            var snipet = data.CodeSnipets.All().Where(c => c.Id == id).FirstOrDefault();
+            if (snipet == null)
+            {
+                return BadRequest("This snipet does not exist!");
+            }
             //TODO: KPK in general :D
             //TODO: check if this user hasn't already voted for this code snippet, the database returns an exception otherwise
             var currentUserId = this.userIdProvider.GetUserId();
-            var newRating = new Rating
-            {
-                CodeSnipetId = id,
-                UserId = currentUserId,
-                Score = rating.Score,
-                RatedOn = DateTime.Now
-            };
+            var newRating = data.Ratings
+                .All()
+                .Where(r => r.UserId == currentUserId && r.CodeSnipetId == id)
+                .FirstOrDefault();
 
-            this.data.Ratings.Add(newRating);
+            if (newRating == null)
+            {
+                newRating = new Rating
+                {
+                    CodeSnipetId = id,
+                    UserId = currentUserId,
+                    Score = rating.Score,
+                    RatedOn = DateTime.Now
+                };
+
+                this.data.Ratings.Add(newRating);
+            }
+            else
+            {
+                newRating.Score = rating.Score;
+                newRating.RatedOn = DateTime.Now;
+            }
+            
             this.data.SaveChanges();
 
             UpdateLastActivityForUser();

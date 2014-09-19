@@ -197,6 +197,7 @@
     <None Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
     <None Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <None Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

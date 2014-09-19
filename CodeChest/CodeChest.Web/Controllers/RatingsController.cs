@@ -37,9 +37,14 @@
             {
                 return BadRequest("This snipet does not exist!");
             }
-            //TODO: KPK in general :D
-            //TODO: check if this user hasn't already voted for this code snippet, the database returns an exception otherwise
+
             var currentUserId = this.userIdProvider.GetUserId();
+
+            if (currentUserId == snipet.UserId)
+            {
+                return BadRequest("You cannot rate your own snippets!");
+            }
+
             var newRating = data.Ratings
                 .All()
                 .Where(r => r.UserId == currentUserId && r.CodeSnipetId == id)

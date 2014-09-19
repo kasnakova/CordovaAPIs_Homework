@@ -29,7 +29,7 @@
 
         public new int SaveChanges()
         {
-            return this.SaveChanges();
+            return base.SaveChanges();
         }
 
         public new IDbSet<TEntity> Set<TEntity>() where TEntity : class

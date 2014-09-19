@@ -57,7 +57,7 @@
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
-            this.data = data;
+            this.data = data;            
         }
 
         public ApplicationUserManager UserManager
@@ -446,7 +446,7 @@
         {
             if (disposing)
             {
-                UserManager.Dispose();
+                if (Request != null) UserManager.Dispose();
             }
 
             base.Dispose(disposing);

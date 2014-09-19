@@ -44,8 +44,8 @@
     require(["sammy", "jquery", "AuthController", "ViewsController", "LogoutController", "Extensions", "Init"],
         function(Sammy, $, AuthController, ViewsController, LogoutController) {
 
-        var //API_URL = "http://localhost:11971/",
-            API_URL = "http://testing-64.apphb.com/",
+        var API_URL = "http://localhost:11971/",
+            //API_URL = "http://testing-64.apphb.com/",
             viewsController = new ViewsController("#main", API_URL),
             app;
 

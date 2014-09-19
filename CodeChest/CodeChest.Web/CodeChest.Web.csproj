@@ -252,6 +252,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RatingsController.cs" />
     <Compile Include="DataModels\CodeSnipetDataModel.cs" />
+    <Compile Include="DataModels\CodeSnipetFillDataModel.cs" />
     <Compile Include="DataModels\CodeSnipetsPartialDataModel.cs" />
     <Compile Include="DataModels\RatingDataModel.cs" />
     <Compile Include="Global.asax.cs">

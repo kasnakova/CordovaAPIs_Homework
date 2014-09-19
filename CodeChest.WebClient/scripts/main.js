@@ -51,6 +51,10 @@
 
         viewsController.loadHeader();
 
+        // TODO List
+        // 1. Implement a cache system
+        // 2. Check async forms
+
         // Routing
         app = new Sammy("#main", function() {
             this.get("#/", function() {
@@ -90,8 +94,12 @@
                 viewsController.loadSecuritySettings();
             });
 
-            this.get("#/user/:guid", function() {
-                // TODO: Implement
+//            this.get("#/user/:guid", function() {
+//                // TODO: Implement
+//            });
+
+            this.get("#/delete-snippet/:id", function() {
+                viewsController.deleteSnippet(this.params.id);
             });
 
             this.get("#/snippet/:id", function() {
@@ -100,7 +108,7 @@
 
             this.get("#/logout", function() {
                 var controller = new LogoutController(API_URL);
-                AuthController.removeAuth();
+                //AuthController.removeAuth();
                 viewsController.loadHeader();
                 viewsController.home();
             });

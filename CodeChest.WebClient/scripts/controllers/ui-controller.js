@@ -69,6 +69,21 @@ define(["jquery"], function($) {
                 });
         };
 
+        UiController.confirmDeleteMessage = function() {
+            $(document).on("click", ".delete-me", function() {
+                var $this = $(this),
+                    $parent = $this.parent().parent(),
+                    $deleteMsg = $parent.find(".confirm-del-msg"),
+                    $abortDelete = $parent.find(".abort-delete");
+
+                $deleteMsg.fadeIn();
+
+                $abortDelete.click(function() {
+                    $deleteMsg.fadeOut();
+                });
+            });
+        };
+
         return UiController;
     }());
 

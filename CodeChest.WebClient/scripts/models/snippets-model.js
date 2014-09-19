@@ -66,6 +66,26 @@ define(["jquery", "q", "AuthController"], function($, Q, AuthController) {
             return deferred.promise;
         };
 
+        SnippetsModel.prototype.deleteSnippet = function(snippetId) {
+            var deferred = Q.defer();
+
+            $.ajax({
+                url: this.apiUrl + "api/CodeSnipets/Delete?id=" + snippetId,
+                type: "DELETE",
+                headers: {
+                    "Authorization": AuthController.giveMeAuthorization()
+                },
+                success: function(msg) {
+                    deferred.resolve(msg);
+                },
+                error: function(msg) {
+                    deferred.reject(msg);
+                }
+            });
+
+            return deferred.promise;
+        };
+
         return SnippetsModel;
     }());
 

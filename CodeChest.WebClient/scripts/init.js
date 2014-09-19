@@ -9,4 +9,5 @@ define(["UiController"], function(UiController) {
     UiController.setSearchAction();
     UiController.enableTextareaTab();
     UiController.loadingSpinner();
+    UiController.confirmDeleteMessage();
 });

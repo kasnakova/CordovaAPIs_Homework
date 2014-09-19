@@ -19,10 +19,10 @@
         </div>
         <p class="rated-by">Rated by {{ratedBy}} people</p>
         {{#isAuthor Poster}}
-            <p class="operations"><a href="">Delete</a> <a href="">Edit</a></p>
+            <p class="operations"><a class="delete-me" href="javascript:;">Delete</a> <a href="#/modify-snippet/{{Id}}">Edit</a></p>
             <div class="confirm-del-msg">
                 <p>Delete the snippet?</p>
-                <p><a href="">YES</a> <a href="">NO</a></p>
+                <p><a href="#/delete-snippet/{{Id}}">YES</a> <a href="javascript:;" class="abort-delete">NO</a></p>
             </div>
         {{/isAuthor}}
     </div>

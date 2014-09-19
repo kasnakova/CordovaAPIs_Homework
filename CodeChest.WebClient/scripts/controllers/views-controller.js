@@ -69,13 +69,25 @@ define([
         };
 
         ViewsController.prototype.loadIndex = function() {
+            var self = this,
+                dataModel;
+
             _clearWrapper.call(this);
 
             if (!AuthController.isLoggedIn()) {
                 this._publicIndex();
             } else {
                 // Put first user language on place of 'C#'
-                window.location = "#/snippets/Java/0";
+                dataModel = new UserModel(this.apiUrl);
+
+                dataModel.getUserLanguages().then(
+                    function(data) {
+                        window.location = "#/snippets/" + data[0] + "/0";
+                    },
+                    function() {
+                        self.home();
+                    }
+                );
             }
         };
 
@@ -152,7 +164,31 @@ define([
             });
         };
 
+        ViewsController.prototype.deleteSnippet = function(id) {
+            if (!AuthController.isLoggedIn()) {
+                this.home();
+                return;
+            }
+
+            var self = this,
+                dataModel = new SnippetsModel(this.apiUrl);
+
+            dataModel.deleteSnippet(id).then(
+                function() {
+                    self.home();
+                },
+                function() {
+                    self.home();
+                }
+            );
+        };
+
         ViewsController.prototype.loadSnippet = function(id) {
+            if (!AuthController.isLoggedIn()) {
+                this.home();
+                return;
+            }
+
             var self = this,
                 dataModel = new SnippetsModel(this.apiUrl);
 

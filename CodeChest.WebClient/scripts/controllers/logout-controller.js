@@ -1,4 +1,4 @@
-define(["jquery", "AuthModel"], function($, AuthModel) {
+define(["jquery", "AuthModel", "AuthController"], function($, AuthModel, AuthController) {
     "use strict";
 
     var LogoutController;
@@ -11,7 +11,7 @@ define(["jquery", "AuthModel"], function($, AuthModel) {
         LogoutController.prototype._initializeLogout = function() {
             this.authModel.logoutUser().then(
                 function (data) {
-                    //
+                    AuthController.removeAuth();
                 },
                 function (msg) {
                     console.error("Error: " + msg);

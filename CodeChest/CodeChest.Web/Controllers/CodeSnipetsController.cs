@@ -116,17 +116,18 @@
             return Ok(codeSnipetTitles);
         }
 
-        //Route - api/CodeSnipets/GetCurrent?page={page}
+        //Route - api/CodeSnipets/GetCurrent?page={page}&language={language}
         [Authorize]
         [HttpGet]
-        public IHttpActionResult GetCurrent(int page)
+        public IHttpActionResult GetCurrent(int page, LanguageType? language)
         {
             var id = this.userIdProvider.GetUserId();
 
             var codeSnipetTitle = this.data
                 .CodeSnipets
                 .All()
-                .Where(c => c.UserId == id)
+                .Where(c => c.UserId == id 
+                    && (language.HasValue ? (c.Language == language) : true))
                 .OrderBy(c => c.AddedOn)
                 .Skip(CODESNIPETS_ON_PAGE * page)
                 .Take(CODESNIPETS_ON_PAGE)

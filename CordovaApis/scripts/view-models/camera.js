@@ -1,13 +1,11 @@
 /* global kendo, window */
 
 var app = app || {};
-
 app.viewmodels = app.viewmodels || {};
 
 (function (scope) {
     'use strict';
-    console.log("s");
-    function addPhotos() {
+    /*  function addPhotos() {
         var onPhotoSuccess = function(data) {
             photoUri = data;
             console.dir(data);
@@ -25,9 +23,9 @@ app.viewmodels = app.viewmodels || {};
         };
 
         navigator.camera.getPicture(onPhotoSuccess, onPhotoError, config);
-    }
-    
-  /* scope.camera = function (e) {
+    }*/
+
+    /* scope.camera = function (e) {
         var vm = kendo.observable({
                                       title: 'Camera',
                                       addPhoto: addPhotos()
@@ -35,12 +33,32 @@ app.viewmodels = app.viewmodels || {};
         
         kendo.bind(e.view.element, vm)
     }; */
-    
+
     scope.camera = kendo.observable({
-		title: 'Contacts',
-		addPhoto: addPhotos()
-	});
-}(app.viewmodels)); 
+        title: 'Contacts',
+        addPhoto: function () {
+            var onPhotoSuccess = function (data) {
+                console.dir(data);
+               // photoUri = data.Uri;
+               // console.dir(photoUri);
+            };
+
+            var onPhotoError = function (error) {
+                navigator.notification.alert("Sorry, but we could not take the photo!");
+            };
+
+            var config = {
+                quality: 50,
+                destinationType: Camera.DestinationType.FILE_URL, //navigator.camera.DestinationType.FILE_URI,
+                targetHeight: 400,
+                targetWidth: 400,
+                sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+            };
+
+            navigator.camera.getPicture(onPhotoSuccess, onPhotoError, config);
+        }
+    });
+}(app.viewmodels));
 
 /* global window, kendo 
 

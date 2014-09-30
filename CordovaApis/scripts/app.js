@@ -1,7 +1,7 @@
 
 (function () {
     var app;
-    var photoUri = '';
+   // var photoUri = '';
  /*   window.APP = {
       models: {
         home: {

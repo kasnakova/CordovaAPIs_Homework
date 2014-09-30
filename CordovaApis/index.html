@@ -1,5 +1,49 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+        <link href="styles/main.css" rel="stylesheet" />
+        
+        <script src="cordova.js"></script>
+        <script src="kendo/js/jquery.min.js"></script>
+        <script src="kendo/js/kendo.mobile.min.js"></script>
+    </head>
+    <body>
+
+        <div data-role="layout" data-id="main">
+            <div data-role="header">
+                <div data-role="navbar">
+                    <span data-role="view-title"></span>
+                    <button data-role="backbutton" data-icon="rewind" data-align="left"></button>
+                </div>
+            </div>
+
+            <!-- application views will be rendered here -->
+
+            <div data-role="footer">
+                <div data-role="tabstrip" class="tabstrip">
+                    <a href="views/home.html" data-icon="home">Home</a>
+                    <a href="views/camera.html" data-icon="camera">Camera</a>
+                    <a href="views/settings.html" data-icon="volume">Capture</a>
+                    <a href="views/settings.html" data-icon="play">Media</a>
+                    <a href="views/contacts.html" data-icon="action">Events</a>
+                    <a href="views/home.html" data-icon="bookmarks">File</a>
+                    <a href="views/home.html" data-icon="contacts">Contacts</a>
+                    <a href="views/settings.html" data-icon="featured">Accelerometer</a>
+                </div>
+            </div>
+        </div>
+
+        <script src="scripts/view-models/camera.js"></script>
+        <script src="scripts/app.js"></script>
+
+    </body>
+</html> 
+<!--
+<!DOCTYPE html>
+<html>
 <head>
     <title></title>
     <meta charset="utf-8" />
@@ -9,29 +53,61 @@
     <script src="cordova.js"></script>
     <script src="kendo/js/jquery.min.js"></script>
     <script src="kendo/js/kendo.mobile.min.js"></script>
-
-    <script src="scripts/app.js"></script>
-
 </head>
 <body>
- 
+    <script type="text/x-kendo-template"
+            id="todo-item-template">
+        <option>
+                #: title #
+        </option>
+    </script>
+
+    <div data-role="view" data-layout="main">
+        <h1>
+            Welcome to my application
+        </h1>
+    </div>
+
+
     <div data-role="layout" data-id="main">
         <div data-role="header">
             <div data-role="navbar">
                 <span data-role="view-title"></span>
             </div>
         </div>
-
-        <!-- application views will be rendered here -->
         
         <div data-role="footer">
-            <div data-role="tabstrip">
-                <a href="views/home.html" data-icon="home">Home</a>   
-                <a href="views/settings.html" data-icon="settings">Settings</a>
-                <a href="views/contacts.html" data-icon="contacts">Contacts</a>
+            <div data-role="tabstrip" class="tabstrip">
+                <a href="views/todos.html" data-icon="bookmarks">Todos</a>   
+                <a href="views/add-todo.html" data-icon="add">Add</a>
             </div>
         </div>
     </div>
 
+
+    <div data-role="layout" data-id="views-layout">
+        <div data-role="header">
+            <div data-role="navbar">
+                <span data-role="view-title"></span>
+            </div>
+        </div>
+        
+        <div data-role="footer">
+            <button data-role="backbutton">back</button>
+            <div data-role="tabstrip" class="tabstrip">
+                <a href="views/todos.html" data-icon="bookmarks">Todos</a>   
+                <a href="views/add-todo.html" data-icon="add">Add</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/view-models/todos.js"></script>
+    <script src="scripts/view-models/add-todo.js"></script>
+    <script src="scripts/app.js"></script>
+
+
+
+
 </body>
 </html>
+-->

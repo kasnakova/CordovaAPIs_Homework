@@ -1,0 +1,11 @@
+<div data-role="view"
+ data-layout="views-layout"
+ data-model="app.viewmodels.addTodo">
+	<h1>Add</h1>
+	<label for="tb-title">Title:</label>
+	<input type="text" id="tb-title"
+		   data-bind="value: title" />
+   <input type="checkbox" data-bind="checked: isUrgent" />
+	<button data-role="button"
+			data-bind="events: {click: saveTodo}">Save</button>
+</div>

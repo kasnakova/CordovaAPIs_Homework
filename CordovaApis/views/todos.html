@@ -1,0 +1,9 @@
+<div data-role="view" 
+	data-layout="views-layout"
+	data-show="app.viewmodels.todos">
+	<h1 data-bind="text: title"></h1>
+	<select data-role="dropdownlist"
+		data-bind="source: todos" 
+		data-template="todo-item-template">
+	</select>
+</div>

@@ -1,0 +1,40 @@
+﻿namespace CodeChest.Models
+{
+    public enum LanguageType
+    {
+        Markup,
+        Twig,
+        Css,
+        CssExtras,
+        CLike,
+        Javascript,
+        Java,
+        Php,
+        PhpExtras,
+        CoffeeScript,
+        Sass,
+        Bash,
+        C,
+        CPlusPlus,
+        Python,
+        Sql,
+        Groovy,
+        Http,
+        Ruby,
+        Rip,
+        Gherkin,
+        CSharp,
+        Go,
+        Nsis,
+        AspNet,
+        Scala,
+        Haskell,
+        Swift,
+        ObjectiveC,
+        AutoHotkey,
+        Ini,
+        Latex,
+        Apache,
+        Git
+    }
+}

@@ -1,0 +1,11 @@
+<h2>Modify '{{Title}}'</h2>
+<form id="modify-snippet" class="snippet-manipulation" action="#/">
+    <div><input type="text" class="title" placeholder="Title" size="50" name="title" value="{{Title}}" required="required" /></div>
+    <div>
+        <select class="language" required="required">
+            {{#generateLangOptions Language}}{{/generateLangOptions}}
+        </select>
+    </div>
+    <div><textarea class="code-input" required="required">{{Content}}</textarea></div>
+    <div><button class="golden">Modify</button></div>
+</form>

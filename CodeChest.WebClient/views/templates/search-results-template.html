@@ -1,0 +1,23 @@
+<script type="text/x-handlebars-template" id="search-results-template">
+    <h2>Search results for "{{searchPhrase}}"</h2>
+    <div id="#search" class="result-container search">
+        <ul>
+        {{#results}}
+            <li>
+                <p><a href="{{url}}" class="title">{{title}}</a></p>
+                <div class="rating">
+                    <div class="stars">
+                        {{#starRating rating}}{{/starRating}}
+                    </div>
+                    <div class="people">{{ratedBy}}</div>
+                    <span class="lang">{{language}}</span>
+                    <span class="added-by">Added by <a href="{{user.url}}">{{user.name}}</a> on {{addedOn}}</span>
+                </div>
+            </li>
+        {{/results}}
+        </ul>
+    </div>
+    <div id="paging">
+        {{#paging totalPages currentPage}}{{/paging}}
+    </div>
+</script>

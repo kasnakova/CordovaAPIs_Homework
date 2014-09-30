@@ -1,0 +1,38 @@
+{
+    "totalPages": 3,
+    "currentPage": 1,
+    "snippets": [
+        {
+            "title": "Pesho's algorithm",
+            "rating": 5,
+            "ratedBy": 1231,
+            "isPrivate": true,
+            "addedOn": "July 12 2012",
+            "url": "http://abv.bg"
+        }, {
+            "title": "Dinko's algorithm",
+            "language": "Javascript",
+            "rating": 1,
+            "ratedBy": 1231,
+            "isPrivate": false,
+            "addedOn": "July 12 2015",
+            "url": "http://abv.bg"
+        }, {
+            "title": "test's algorithm",
+            "language": "Ruby",
+            "rating": 4,
+            "ratedBy": 1231,
+            "isPrivate": false,
+            "addedOn": "July 12 2012",
+            "url": "http://abv.bg"
+        }, {
+            "title": "asdasd",
+            "language": "PHP",
+            "rating": 3,
+            "ratedBy": 1231,
+            "isPrivate": true,
+            "addedOn": "July 12 2012",
+            "url": "http://abv.bg"
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+<h2>{{Title}}</h2>
+<div id="snippet-info">
+    <div class="avatar"><img src="img/def_avatar.png" width="64" height="64" alt="{{Poster}}" /></div>
+    <div class="person-info">
+        <p><a href="{{user.url}}" class="golden">{{Poster}}</a></p>
+        <p><span class="light">Added on {{AddedOn}}</span></p>
+        <p><span class="lang">{{#getLangById Language}}{{/getLangById}}</span></p>
+        {{#isAuthor user.name}}
+        <div class="access-lvl on-page"></div>
+        {{/isAuthor}}
+    </div>
+    <div class="additional-ops">
+        {{#isAuthor Poster}}
+        <div class="rating-bar">
+        {{else}}
+        <div class="rating-bar rateable">
+        {{/isAuthor}}
+            <div class="selected" data-info="1" title="Rate with 1"><div class="selected" data-info="2" title="Rate with 2"><div class="selected" data-info="3" title="Rate with 3"><div data-info="4" title="Rate with 4"><div data-info="5" title="Rate with 5"></div></div></div></div></div>
+        </div>
+        <p class="rated-by">Rated by {{ratedBy}} people</p>
+        {{#isAuthor Poster}}
+            <p class="operations"><a class="delete-me" href="javascript:;">Delete</a> <a href="#/modify-snippet/{{Id}}">Edit</a></p>
+            <div class="confirm-del-msg">
+                <p>Delete the snippet?</p>
+                <p><a href="#/delete-snippet/{{Id}}">YES</a> <a href="javascript:;" class="abort-delete">NO</a></p>
+            </div>
+        {{/isAuthor}}
+    </div>
+</div>
+<pre class="line-numbers"><code class="{{#getLangClassById Language}}{{/getLangClassById}}">{{Content}}
+</code></pre>
+<p id="prism-credits">Code highlighting by <a href="http://prismjs.com/" target="_blank">PrismJS</a></p>
